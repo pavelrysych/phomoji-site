@@ -186,20 +186,6 @@ body {
   color: #cfe0f5;
 }
 
-.site-footer {
-  margin-top: auto;
-  padding: 1rem 1.25rem 1.5rem;
-  text-align: center;
-  font-family: "Source Sans 3", system-ui, sans-serif;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
-}
-
-.site-footer a {
-  color: var(--text-muted);
-}
-
 @media (max-width: 480px) {
   .legal-panel {
     max-height: none;
