@@ -1,0 +1,19 @@
+{
+  "name": "Phomoji — Your forgotten photos, rediscovered.",
+  "short_name": "Phomoji",
+  "description": "You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0c0a09",
+  "theme_color": "#0c0a09",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/assets/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

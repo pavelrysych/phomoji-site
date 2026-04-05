@@ -3,11 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://phomoji.com/" />
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  />
+  <meta name="author" content="Phomoji" />
+  <meta name="theme-color" content="#0c0a09" />
   <meta
     name="description"
     content="You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android."
   />
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://phomoji.com/" />
+  <meta property="og:title" content="Phomoji — Your forgotten photos, rediscovered." />
+  <meta
+    property="og:description"
+    content="You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android."
+  />
+  <meta property="og:image" content="https://phomoji.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="763" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Phomoji" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Phomoji — Your forgotten photos, rediscovered." />
+  <meta
+    name="twitter:description"
+    content="You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android."
+  />
+  <meta name="twitter:image" content="https://phomoji.com/assets/og-image.png" />
   <title>Phomoji — Your forgotten photos, rediscovered.</title>
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="icon" href="assets/favicon.png" type="image/png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,6 +49,47 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://phomoji.com/#website",
+        "name": "Phomoji",
+        "url": "https://phomoji.com/",
+        "description": "You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android.",
+        "publisher": { "@id": "https://phomoji.com/#organization" },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://phomoji.com/#organization",
+        "name": "Phomoji",
+        "url": "https://phomoji.com/",
+        "logo": "https://phomoji.com/assets/favicon.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@phomoji.com"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Phomoji",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "iOS, Android",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android.",
+        "url": "https://phomoji.com/"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="video-layer" aria-hidden="true">
