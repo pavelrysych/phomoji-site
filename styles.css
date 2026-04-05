@@ -6,6 +6,8 @@
   --panel: rgba(12, 10, 9, 0.72);
   --panel-border: rgba(255, 255, 255, 0.08);
   --accent: #e7e5e4;
+  /* толстая чёрная «паспарту» / рамка как у фото */
+  --frame: clamp(18px, 5vmin, 52px);
 }
 
 *,
@@ -18,10 +20,17 @@
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
 }
 
 body {
-  min-height: 100vh;
+  margin: var(--frame);
+  min-height: calc(100vh - 2 * var(--frame));
+  height: auto;
+  overflow-x: hidden;
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 1.05rem;
   line-height: 1.65;
@@ -34,10 +43,13 @@ body.sheet-open {
   overscroll-behavior: none;
 }
 
-/* Background video */
+/* Background video — внутри рамки, не под чёрные поля */
 .video-layer {
   position: fixed;
-  inset: 0;
+  top: var(--frame);
+  right: var(--frame);
+  bottom: var(--frame);
+  left: var(--frame);
   z-index: 0;
   background: #000;
 }
@@ -54,7 +66,7 @@ body.sheet-open {
 .page {
   position: relative;
   z-index: 1;
-  min-height: 100vh;
+  min-height: calc(100vh - 2 * var(--frame));
   display: flex;
   flex-direction: column;
 }
@@ -128,7 +140,10 @@ body.sheet-open {
 /* Bottom sheets (Terms / Privacy) */
 .sheet-backdrop {
   position: fixed;
-  inset: 0;
+  top: var(--frame);
+  right: var(--frame);
+  bottom: var(--frame);
+  left: var(--frame);
   z-index: 15;
   background: rgba(0, 0, 0, 0.42);
   opacity: 0;
@@ -146,14 +161,15 @@ body.sheet-open {
 /* Sheet wrapper: no hit-testing — clicks pass through to .sheet-backdrop (fixes side taps). */
 .legal-sheet {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: var(--frame);
+  right: var(--frame);
+  bottom: var(--frame);
   z-index: 20;
   display: flex;
   justify-content: center;
   padding: 0 0 env(safe-area-inset-bottom, 0);
-  transform: translate3d(0, 100%, 0);
+  /* запас ниже 100% — иначе при рамке видна полоска шторки */
+  transform: translate3d(0, calc(100% + var(--frame) + 20px), 0);
   transition: transform 0.42s cubic-bezier(0.32, 0.72, 0, 1);
   pointer-events: none;
   will-change: transform;
