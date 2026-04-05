@@ -10,6 +10,11 @@ Full-screen background video, home page, and legal pages (**Terms of Service**, 
 - `styles.css` — layout and typography
 - `assets/background.mp4` — background video (keep this file when deploying)
 - `assets/favicon.png` — favicon (cloud character)
+- `assets/og-image.png` — Open Graph / social preview image
+- `robots.txt` — crawler rules; points to the sitemap
+- `sitemap.xml` — homepage + `terms.html` / `privacy.html` entry URLs
+- `llms.txt` — concise site summary for AI / LLM crawlers
+- `site.webmanifest` — PWA manifest (name, theme, icon) for install prompts and mobile chrome
 
 ## Local preview
 
