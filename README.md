@@ -4,8 +4,8 @@ Full-screen background video, home page, and legal pages (**Terms of Service**, 
 
 ## Structure
 
-- `index.html` — single page: hero + Terms + Privacy (switched client-side; **no full reload** when using in-app links `#/terms`, `#/privacy`)
-- `app.js` — hash routing (`#/`, `#/terms`, `#/privacy`), **Back** returns to home
+- `index.html` — hero always visible; Terms / Privacy open as **bottom sheets** (slide up from below), hash `#/terms` / `#/privacy`, **no full reload**
+- `app.js` — opens/closes sheets, **Back** / backdrop click / **Esc** closes to `#/`
 - `terms.html` / `privacy.html` — redirect to `index.html#/…` for old bookmarks or direct URLs
 - `styles.css` — layout and typography
 - `assets/background.mp4` — background video (keep this file when deploying)

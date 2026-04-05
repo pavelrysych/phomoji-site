@@ -14,31 +14,68 @@
     return "home";
   }
 
+  function closeSheets() {
+    location.hash = "#/";
+  }
+
   function showRoute() {
     const route = parseRoute();
-    const ids = ["view-home", "view-terms", "view-privacy"];
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const on = id === "view-" + route;
-      el.hidden = !on;
-      el.setAttribute("aria-hidden", on ? "false" : "true");
-    });
+    const termsOpen = route === "terms";
+    const privacyOpen = route === "privacy";
+    const anyOpen = termsOpen || privacyOpen;
+
+    const sheetTerms = document.getElementById("sheet-terms");
+    const sheetPrivacy = document.getElementById("sheet-privacy");
+    const backdrop = document.getElementById("sheet-backdrop");
+
+    if (sheetTerms) {
+      sheetTerms.classList.toggle("is-open", termsOpen);
+      sheetTerms.setAttribute("aria-hidden", termsOpen ? "false" : "true");
+    }
+    if (sheetPrivacy) {
+      sheetPrivacy.classList.toggle("is-open", privacyOpen);
+      sheetPrivacy.setAttribute("aria-hidden", privacyOpen ? "false" : "true");
+    }
+    if (backdrop) {
+      backdrop.classList.toggle("is-visible", anyOpen);
+      backdrop.setAttribute("aria-hidden", anyOpen ? "false" : "true");
+    }
+
+    document.body.classList.toggle("sheet-open", anyOpen);
     document.title = titles[route] || titles.home;
     window.scrollTo(0, 0);
-    const panel = document.querySelector("#view-" + route + " .legal-panel");
-    if (panel) panel.scrollTop = 0;
+
+    const activePanel = termsOpen
+      ? document.querySelector("#sheet-terms .legal-panel")
+      : privacyOpen
+        ? document.querySelector("#sheet-privacy .legal-panel")
+        : null;
+    if (activePanel) activePanel.scrollTop = 0;
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     showRoute();
     window.addEventListener("hashchange", showRoute);
 
-    document.querySelectorAll('[data-nav="home"]').forEach((btn) => {
+    document.querySelectorAll('[data-nav="home"]').forEach(function (btn) {
       btn.addEventListener("click", function (e) {
         e.preventDefault();
-        location.hash = "#/";
+        closeSheets();
       });
+    });
+
+    document.querySelectorAll("[data-close-sheet]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        if (document.body.classList.contains("sheet-open")) {
+          closeSheets();
+        }
+      });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && document.body.classList.contains("sheet-open")) {
+        closeSheets();
+      }
     });
   });
 })();

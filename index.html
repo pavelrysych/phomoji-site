@@ -21,157 +21,179 @@
   </div>
 
   <div class="page">
-    <main id="view-home" class="hero view" aria-hidden="false">
+    <main class="hero">
       <h1 class="hero-title">Phomoji</h1>
       <div class="hero-actions">
         <a class="btn" href="#/terms">Terms of Service</a>
         <a class="btn btn--ghost" href="#/privacy">Privacy Policy</a>
       </div>
     </main>
+  </div>
 
-    <main id="view-terms" class="legal-main view" hidden aria-hidden="true">
-      <article class="legal-panel">
-        <button type="button" class="back-btn" data-nav="home">← Back</button>
-        <h1>Terms of Service</h1>
-        <p class="effective">Effective date: March 17, 2026</p>
+  <div
+    class="sheet-backdrop"
+    id="sheet-backdrop"
+    tabindex="-1"
+    aria-hidden="true"
+    data-close-sheet
+  ></div>
 
-        <h2>1. Acceptance</h2>
-        <p>
-          By downloading or using Phomoji, you agree to these Terms of Service. If you do not agree, do not use the app.
-        </p>
+  <div
+    class="legal-sheet"
+    id="sheet-terms"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="terms-title"
+    aria-hidden="true"
+  >
+    <article class="legal-panel legal-panel--sheet">
+      <button type="button" class="back-btn" data-nav="home">← Back</button>
+      <h1 id="terms-title">Terms of Service</h1>
+      <p class="effective">Effective date: March 17, 2026</p>
 
-        <h2>2. Description</h2>
-        <p>
-          Phomoji is a mobile application that displays random photos from your gallery and allows you to tag them with emotions to build a personal memory album.
-        </p>
+      <h2>1. Acceptance</h2>
+      <p>
+        By downloading or using Phomoji, you agree to these Terms of Service. If you do not agree, do not use the app.
+      </p>
 
-        <h2>3. Account</h2>
-        <p>
-          You must create an account to use Phomoji. You are responsible for maintaining the security of your account credentials.
-        </p>
+      <h2>2. Description</h2>
+      <p>
+        Phomoji is a mobile application that displays random photos from your gallery and allows you to tag them with emotions to build a personal memory album.
+      </p>
 
-        <h2>4. Subscription</h2>
-        <p>
-          Phomoji offers a free tier and a premium subscription. Subscriptions are billed through the App Store or Google Play. You can cancel at any time through your device&apos;s subscription settings. No refunds are provided for partial subscription periods except as required by law.
-        </p>
+      <h2>3. Account</h2>
+      <p>
+        You must create an account to use Phomoji. You are responsible for maintaining the security of your account credentials.
+      </p>
 
-        <h2>5. User Content</h2>
-        <p>
-          Your photos remain yours. By using Phomoji, you grant us a limited license to process your photos within the app solely to provide the service. We do not claim ownership of your content.
-        </p>
+      <h2>4. Subscription</h2>
+      <p>
+        Phomoji offers a free tier and a premium subscription. Subscriptions are billed through the App Store or Google Play. You can cancel at any time through your device&apos;s subscription settings. No refunds are provided for partial subscription periods except as required by law.
+      </p>
 
-        <h2>6. Prohibited Use</h2>
-        <ul>
-          <li>Use the app for any unlawful purpose</li>
-          <li>Attempt to reverse engineer or hack the app</li>
-          <li>Share your account with others</li>
-        </ul>
+      <h2>5. User Content</h2>
+      <p>
+        Your photos remain yours. By using Phomoji, you grant us a limited license to process your photos within the app solely to provide the service. We do not claim ownership of your content.
+      </p>
 
-        <h2>7. Disclaimer</h2>
-        <p>
-          Phomoji is provided &quot;as is&quot; without warranties of any kind. We are not responsible for any loss of data.
-        </p>
+      <h2>6. Prohibited Use</h2>
+      <ul>
+        <li>Use the app for any unlawful purpose</li>
+        <li>Attempt to reverse engineer or hack the app</li>
+        <li>Share your account with others</li>
+      </ul>
 
-        <h2>8. Limitation of Liability</h2>
-        <p>
-          To the maximum extent permitted by law, Pavel Rysych shall not be liable for any indirect, incidental, or consequential damages arising from your use of Phomoji.
-        </p>
+      <h2>7. Disclaimer</h2>
+      <p>
+        Phomoji is provided &quot;as is&quot; without warranties of any kind. We are not responsible for any loss of data.
+      </p>
 
-        <h2>9. Governing Law</h2>
-        <p>
-          These terms are governed by the laws of the State of Wyoming, United States.
-        </p>
+      <h2>8. Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by law, Pavel Rysych shall not be liable for any indirect, incidental, or consequential damages arising from your use of Phomoji.
+      </p>
 
-        <h2>10. Contact</h2>
-        <p>
-          <a href="mailto:support@phomoji.com">support@phomoji.com</a>
-        </p>
-      </article>
-    </main>
+      <h2>9. Governing Law</h2>
+      <p>
+        These terms are governed by the laws of the State of Wyoming, United States.
+      </p>
 
-    <main id="view-privacy" class="legal-main view" hidden aria-hidden="true">
-      <article class="legal-panel">
-        <button type="button" class="back-btn" data-nav="home">← Back</button>
-        <h1>Privacy Policy</h1>
-        <p class="effective">Effective date: March 17, 2026</p>
+      <h2>10. Contact</h2>
+      <p>
+        <a href="mailto:support@phomoji.com">support@phomoji.com</a>
+      </p>
+    </article>
+  </div>
 
-        <h2>1. Introduction</h2>
-        <p>
-          Phomoji (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is operated by Pavel Rysych. This Privacy Policy explains how we collect, use, and protect your information when you use the Phomoji mobile application.
-        </p>
+  <div
+    class="legal-sheet"
+    id="sheet-privacy"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="privacy-title"
+    aria-hidden="true"
+  >
+    <article class="legal-panel legal-panel--sheet">
+      <button type="button" class="back-btn" data-nav="home">← Back</button>
+      <h1 id="privacy-title">Privacy Policy</h1>
+      <p class="effective">Effective date: March 17, 2026</p>
 
-        <h2>2. Information We Collect</h2>
-        <ul>
-          <li>
-            <strong>Email address</strong> — collected when you create an account, used for authentication via Supabase
-          </li>
-          <li>
-            <strong>Photos and videos</strong> — we access your device gallery to display random photos. Emotion tags you assign are stored on our servers linked to your account
-          </li>
-          <li>
-            <strong>User ID</strong> — a unique identifier assigned to your account for app functionality and analytics
-          </li>
-          <li>
-            <strong>Purchase history</strong> — collected via RevenueCat to manage your subscription
-          </li>
-          <li>
-            <strong>Usage data</strong> — how you interact with the app, collected via PostHog for product analytics
-          </li>
-          <li>
-            <strong>Crash data</strong> — error logs collected via Sentry to fix bugs and improve stability
-          </li>
-        </ul>
+      <h2>1. Introduction</h2>
+      <p>
+        Phomoji (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is operated by Pavel Rysych. This Privacy Policy explains how we collect, use, and protect your information when you use the Phomoji mobile application.
+      </p>
 
-        <h2>3. How We Use Your Information</h2>
-        <ul>
-          <li>To provide and improve the app</li>
-          <li>To manage your account and subscription</li>
-          <li>To analyze how users interact with the app</li>
-          <li>To fix crashes and technical issues</li>
-        </ul>
+      <h2>2. Information We Collect</h2>
+      <ul>
+        <li>
+          <strong>Email address</strong> — collected when you create an account, used for authentication via Supabase
+        </li>
+        <li>
+          <strong>Photos and videos</strong> — we access your device gallery to display random photos. Emotion tags you assign are stored on our servers linked to your account
+        </li>
+        <li>
+          <strong>User ID</strong> — a unique identifier assigned to your account for app functionality and analytics
+        </li>
+        <li>
+          <strong>Purchase history</strong> — collected via RevenueCat to manage your subscription
+        </li>
+        <li>
+          <strong>Usage data</strong> — how you interact with the app, collected via PostHog for product analytics
+        </li>
+        <li>
+          <strong>Crash data</strong> — error logs collected via Sentry to fix bugs and improve stability
+        </li>
+      </ul>
 
-        <h2>4. Third-Party Services</h2>
-        <p>We use the following third-party services that may collect data:</p>
-        <ul>
-          <li>Supabase (<a href="https://supabase.com" rel="noopener noreferrer">supabase.com</a>) — database and authentication</li>
-          <li>RevenueCat (<a href="https://revenuecat.com" rel="noopener noreferrer">revenuecat.com</a>) — subscription management</li>
-          <li>PostHog (<a href="https://posthog.com" rel="noopener noreferrer">posthog.com</a>) — product analytics</li>
-          <li>Sentry (<a href="https://sentry.io" rel="noopener noreferrer">sentry.io</a>) — crash reporting</li>
-        </ul>
+      <h2>3. How We Use Your Information</h2>
+      <ul>
+        <li>To provide and improve the app</li>
+        <li>To manage your account and subscription</li>
+        <li>To analyze how users interact with the app</li>
+        <li>To fix crashes and technical issues</li>
+      </ul>
 
-        <h2>5. Data Storage</h2>
-        <p>
-          Your data is stored on Supabase servers. We do not sell your personal data to third parties.
-        </p>
+      <h2>4. Third-Party Services</h2>
+      <p>We use the following third-party services that may collect data:</p>
+      <ul>
+        <li>Supabase (<a href="https://supabase.com" rel="noopener noreferrer">supabase.com</a>) — database and authentication</li>
+        <li>RevenueCat (<a href="https://revenuecat.com" rel="noopener noreferrer">revenuecat.com</a>) — subscription management</li>
+        <li>PostHog (<a href="https://posthog.com" rel="noopener noreferrer">posthog.com</a>) — product analytics</li>
+        <li>Sentry (<a href="https://sentry.io" rel="noopener noreferrer">sentry.io</a>) — crash reporting</li>
+      </ul>
 
-        <h2>6. Photo Access</h2>
-        <p>
-          Phomoji accesses your photo library only to display photos within the app. We do not upload your original photos to our servers without your explicit action.
-        </p>
+      <h2>5. Data Storage</h2>
+      <p>
+        Your data is stored on Supabase servers. We do not sell your personal data to third parties.
+      </p>
 
-        <h2>7. Your Rights</h2>
-        <p>
-          You may request deletion of your account and all associated data by contacting us at
-          <a href="mailto:support@phomoji.com">support@phomoji.com</a>. We will process your request within 30 days.
-        </p>
+      <h2>6. Photo Access</h2>
+      <p>
+        Phomoji accesses your photo library only to display photos within the app. We do not upload your original photos to our servers without your explicit action.
+      </p>
 
-        <h2>8. Children&apos;s Privacy</h2>
-        <p>
-          Phomoji is not directed at children under 13. We do not knowingly collect data from children under 13.
-        </p>
+      <h2>7. Your Rights</h2>
+      <p>
+        You may request deletion of your account and all associated data by contacting us at
+        <a href="mailto:support@phomoji.com">support@phomoji.com</a>. We will process your request within 30 days.
+      </p>
 
-        <h2>9. Changes to This Policy</h2>
-        <p>
-          We may update this Privacy Policy. We will notify you of significant changes via the app or email.
-        </p>
+      <h2>8. Children&apos;s Privacy</h2>
+      <p>
+        Phomoji is not directed at children under 13. We do not knowingly collect data from children under 13.
+      </p>
 
-        <h2>10. Contact</h2>
-        <p>
-          Pavel Rysych — <a href="mailto:support@phomoji.com">support@phomoji.com</a> —
-          <a href="https://phomoji.com">phomoji.com</a>
-        </p>
-      </article>
-    </main>
+      <h2>9. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy. We will notify you of significant changes via the app or email.
+      </p>
+
+      <h2>10. Contact</h2>
+      <p>
+        Pavel Rysych — <a href="mailto:support@phomoji.com">support@phomoji.com</a> —
+        <a href="https://phomoji.com">phomoji.com</a>
+      </p>
+    </article>
   </div>
 
   <script src="app.js" defer></script>

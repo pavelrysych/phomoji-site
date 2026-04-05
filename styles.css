@@ -29,6 +29,11 @@ body {
   background: #0c0a09;
 }
 
+body.sheet-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 /* Background video */
 .video-layer {
   position: fixed;
@@ -120,12 +125,42 @@ body {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* Legal pages */
-.legal-main {
-  flex: 1;
-  padding: 1.5rem 1rem 3rem;
+/* Bottom sheets (Terms / Privacy) */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  background: rgba(0, 0, 0, 0.42);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.32s ease, visibility 0.32s ease;
+  pointer-events: none;
+}
+
+.sheet-backdrop.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.legal-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
   display: flex;
   justify-content: center;
+  padding: 0 0 env(safe-area-inset-bottom, 0);
+  transform: translate3d(0, 100%, 0);
+  transition: transform 0.42s cubic-bezier(0.32, 0.72, 0, 1);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.legal-sheet.is-open {
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
 }
 
 .back-btn {
@@ -164,6 +199,22 @@ body {
   border: 1px solid var(--panel-border);
   border-radius: 1rem;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.legal-panel--sheet {
+  max-height: min(88vh, 52rem);
+  margin: 0 auto;
+  border-radius: 1.25rem 1.25rem 0 0;
+  border-bottom: none;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.45);
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legal-sheet,
+  .sheet-backdrop {
+    transition-duration: 0.01ms;
+  }
 }
 
 .legal-panel h1 {
@@ -213,7 +264,8 @@ body {
 }
 
 @media (max-width: 480px) {
-  .legal-panel {
-    max-height: none;
+  .legal-panel--sheet {
+    max-height: min(92vh, 52rem);
+    border-radius: 1rem 1rem 0 0;
   }
 }
