@@ -4,9 +4,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export function LampDemo() {
+export function LampDemo({
+  variant = "fullscreen",
+}: {
+  variant?: "fullscreen" | "section";
+}) {
   return (
-    <LampContainer>
+    <LampContainer variant={variant}>
       <motion.h1
         initial={{ opacity: 0.5, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -26,18 +30,28 @@ export function LampDemo() {
 export const LampContainer = ({
   children,
   className,
+  variant = "fullscreen",
 }: {
   children: React.ReactNode;
   className?: string;
+  variant?: "fullscreen" | "section";
 }) => {
+  const isSection = variant === "section";
+
   return (
     <div
       className={cn(
-        "relative z-0 flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-md bg-slate-950",
+        "relative z-0 flex w-full flex-col items-center justify-center overflow-hidden bg-slate-950",
+        isSection ? "min-h-[max(85vh,28rem)]" : "min-h-screen rounded-md",
         className
       )}
     >
-      <div className="relative z-0 isolate flex w-full flex-1 scale-y-125 items-center justify-center">
+      <div
+        className={cn(
+          "relative z-0 isolate flex w-full flex-1 items-center justify-center",
+          isSection ? "min-h-[70vh] scale-y-110" : "scale-y-125"
+        )}
+      >
         <motion.div
           initial={{ opacity: 0.5, width: "15rem" }}
           whileInView={{ opacity: 1, width: "30rem" }}
@@ -97,7 +111,12 @@ export const LampContainer = ({
         <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-slate-950" />
       </div>
 
-      <div className="relative z-50 flex -translate-y-80 flex-col items-center px-5">
+      <div
+        className={cn(
+          "relative z-50 flex flex-col items-center px-5",
+          isSection ? "-translate-y-48 md:-translate-y-56" : "-translate-y-80"
+        )}
+      >
         {children}
       </div>
     </div>

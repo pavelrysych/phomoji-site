@@ -10,8 +10,7 @@ npm install
 npm run dev
 ```
 
-- Home: [http://localhost:3000](http://localhost:3000)
-- **Lamp section:** [http://localhost:3000/lamp](http://localhost:3000/lamp)
+- Home: [http://localhost:3000](http://localhost:3000) — **hero**, затем секция **Lamp** (`#lamp`); отдельного маршрута `/lamp` нет.
 
 ## Structure
 
@@ -19,7 +18,7 @@ npm run dev
 |------|------|
 | `src/components/ui/` | shadcn-style UI (includes `lamp.tsx`) |
 | `src/lib/utils.ts` | `cn()` helper (`clsx` + `tailwind-merge`) |
-| `src/app/lamp/page.tsx` | Route that renders `LampDemo` |
+| `src/app/page.tsx` | Главная: hero + `<LampDemo variant="section" />` |
 
 `components/ui` matches shadcn defaults so CLI `npx shadcn@latest add …` keeps working.
 
