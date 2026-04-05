@@ -58,7 +58,7 @@
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       window.setTimeout(function () {
         document.documentElement.classList.add("frame-ready");
-      }, 400);
+      }, 550);
     }
 
     showRoute();
