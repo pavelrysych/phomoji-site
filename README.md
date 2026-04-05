@@ -28,7 +28,7 @@ Open `http://localhost:8080/` in a browser.
 
 ## Optional: React experiment (`lamp-ui/`)
 
-On branch `experiment/lamp-react`, the repo includes a **Next.js + TypeScript + Tailwind + shadcn** sub-app in `lamp-ui/` (hero + Lamp section on `/`). It does not replace the static landing; deploy or run it separately — see `lamp-ui/README.md`.
+On branch `experiment/lamp-react`, the repo includes a **Next.js + TypeScript + Tailwind + shadcn** sub-app in `lamp-ui/` — the same **Phomoji** landing (video, title, legal sheets) as the static site, plus a **Lamp** section below on `/`. It does not replace the static landing; deploy or run it separately — see `lamp-ui/README.md`.
 
 ## Deploy
 
