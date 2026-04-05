@@ -30,17 +30,17 @@ html {
   overflow: hidden;
   /* сначала без рамки; класс .frame-ready (из app.js) плавно увеличивает --frame */
   --frame: 0px;
-  transition: --frame 1.15s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: --frame 1.75s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 html.frame-ready {
-  --frame: clamp(18px, 5vmin, 52px);
+  --frame: clamp(28px, 9vmin, 96px);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     transition: none;
-    --frame: clamp(18px, 5vmin, 52px);
+    --frame: clamp(28px, 9vmin, 96px);
   }
 }
 
