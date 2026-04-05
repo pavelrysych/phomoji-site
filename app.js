@@ -2,7 +2,7 @@
   "use strict";
 
   const titles = {
-    home: "Phomoji",
+    home: "Phomoji — Your forgotten photos, rediscovered.",
     terms: "Terms of Service — Phomoji",
     privacy: "Privacy Policy — Phomoji",
   };
