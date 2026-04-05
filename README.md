@@ -26,6 +26,10 @@ python3 -m http.server 8080
 
 Open `http://localhost:8080/` in a browser.
 
+## Optional: React experiment (`lamp-ui/`)
+
+On branch `experiment/lamp-react`, the repo includes a **Next.js + TypeScript + Tailwind + shadcn** sub-app in `lamp-ui/` — the same **Phomoji** landing (video, title, legal sheets) as the static site, plus a **Lamp** section below on `/`. It does not replace the static landing; deploy or run it separately — see `lamp-ui/README.md`.
+
 ## Deploy
 
-Upload the whole folder to any static host (Netlify, Vercel, Cloudflare Pages, etc.) and point your domain’s DNS to the host as described in their docs.
+Upload the whole folder to any static host (Netlify, Vercel, Cloudflare Pages, etc.) and point your domain’s DNS to the host as described in their docs. For production, deploy **either** the static files at the repo root **or** configure your host to build `lamp-ui/` as a separate app if you use that experiment.

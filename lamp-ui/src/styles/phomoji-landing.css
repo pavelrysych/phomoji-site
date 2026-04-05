@@ -1,0 +1,490 @@
+/* Phomoji — shared layout: full-screen video + readable overlay */
+
+@property --frame {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+:root {
+  --text: #f5f5f4;
+  --text-muted: #d6d3d1;
+  --panel: rgba(12, 10, 9, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --accent: #e7e5e4;
+}
+
+/* Scoped to hero section — не трогаем глобальный reset Next/shadcn */
+.phomoji-root,
+.phomoji-root *::before,
+.phomoji-root *::after {
+  box-sizing: border-box;
+}
+
+/* НЕ используем `.phomoji-root *` — он сильнее, чем `.btn` / `.coming-soon-*`, и обнуляет padding, ломая кнопки и иконки */
+.phomoji-root :where(p) {
+  margin: 0;
+}
+
+.phomoji-root {
+  position: relative;
+  scroll-behavior: smooth;
+  min-height: calc(100vh - 2 * var(--frame));
+  margin: var(--frame);
+  overflow: hidden;
+  font-family: var(--font-phomoji-serif), Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: #0c0a09;
+  --frame: 0px;
+  transition: --frame 1.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.phomoji-root.frame-ready {
+  --frame: clamp(28px, 9vmin, 96px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phomoji-root {
+    transition: none;
+    --frame: clamp(28px, 9vmin, 96px);
+  }
+}
+
+body.phomoji-sheet-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Background video — только внутри секции героя */
+.phomoji-root .video-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background: #000;
+}
+
+.video-layer video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Page shell above video */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 2 * var(--frame));
+  display: flex;
+  flex-direction: column;
+}
+
+/* Home hero — sit lower so the video (e.g. cloud) stays visible above */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: max(2rem, env(safe-area-inset-top, 0px));
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  /* ближе к низу экрана; safe-area — над вырезом / home indicator */
+  padding-bottom: max(0.75rem, min(4vh, 2rem), env(safe-area-inset-bottom, 0px));
+  text-align: center;
+}
+
+.hero-title {
+  font-family: var(--font-phomoji-italiana), Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  font-size: clamp(3.5rem, 14vw, 11rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+/* Одна зона внизу: кнопки + Coming Soon — без fixed, без наложений */
+.hero-bottom {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.25rem;
+  width: 100%;
+  max-width: min(100%, 52rem);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: #1c1917;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background: #fff;
+}
+
+.btn--ghost {
+  color: var(--accent);
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.btn--ghost:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Coming Soon — текст + иконки без пилюли */
+.coming-soon {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.55rem;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.coming-soon-label {
+  margin: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #fff;
+}
+
+.coming-soon-stores {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.coming-soon-store {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.55rem;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: auto;
+  color: #fff;
+}
+
+.coming-soon-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  display: block;
+}
+
+/* Full-color App Store tile (без отдельной подложки) */
+.coming-soon-store--appstore {
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: 22%;
+}
+
+/* Google Play — только логотип, без чёрной «кнопки» */
+.coming-soon-store--google {
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.coming-soon-icon--google {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: block;
+}
+
+.coming-soon-icon--appstore {
+  width: 100%;
+  height: 100%;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 380px) {
+  .hero-bottom {
+    gap: 0.75rem 0.85rem;
+  }
+
+  .coming-soon {
+    gap: 0.45rem;
+  }
+
+  .coming-soon-label {
+    font-size: 0.82rem;
+  }
+
+  .coming-soon-store:not(.coming-soon-store--google) {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .coming-soon-icon:not(.coming-soon-icon--google):not(.coming-soon-icon--appstore) {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .coming-soon-icon--google {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+}
+
+/* Modal popups (Terms / Privacy) — по центру экрана */
+/* Закрытые окна: атрибут hidden в разметке; подстраховка на случай отсутствия стилей */
+.legal-sheet[hidden],
+.sheet-backdrop[hidden] {
+  display: none !important;
+}
+
+.sheet-backdrop {
+  position: fixed;
+  top: var(--frame);
+  right: var(--frame);
+  bottom: var(--frame);
+  left: var(--frame);
+  z-index: 15;
+  background: rgba(0, 0, 0, 0.52);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+  pointer-events: none;
+}
+
+.sheet-backdrop.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Обёртка: flex-центр, без привязки к низу */
+.legal-sheet {
+  position: fixed;
+  inset: var(--frame);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+  pointer-events: none;
+}
+
+.legal-sheet.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sheet-close {
+  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 2;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  font-size: 1.65rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.sheet-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.sheet-close:active {
+  transform: scale(0.96);
+}
+
+.legal-panel {
+  width: 100%;
+  max-width: 42rem;
+  max-height: min(82vh, calc(100vh - 3rem));
+  overflow-y: auto;
+  padding: 1.75rem 1.5rem 2rem;
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--panel-border);
+  border-radius: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.legal-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.legal-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.legal-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+}
+
+.legal-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.legal-panel--sheet {
+  position: relative;
+  pointer-events: auto;
+  max-height: min(85vh, 52rem);
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 1rem;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+}
+
+.legal-panel--sheet > h1 {
+  padding-right: 3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legal-sheet,
+  .sheet-backdrop {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Явный светлый текст: body в Next задаёт тёмный text-foreground */
+.legal-sheet .legal-panel,
+.legal-sheet .legal-panel p,
+.legal-sheet .legal-panel li {
+  color: #f5f5f4;
+}
+
+.legal-sheet .legal-panel h1 {
+  font-family: var(--font-phomoji-playfair), "Times New Roman", Times, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.legal-sheet .effective {
+  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 1.75rem;
+}
+
+.legal-sheet .legal-panel h2 {
+  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.legal-sheet .legal-panel p {
+  margin-bottom: 0.85rem;
+}
+
+.legal-sheet .legal-panel ul {
+  margin: 0.5rem 0 1rem 1.25rem;
+}
+
+.legal-sheet .legal-panel li {
+  margin-bottom: 0.4rem;
+}
+
+.legal-sheet .legal-panel strong {
+  color: #ffffff;
+}
+
+.legal-sheet .legal-panel a {
+  color: #bfdbfe;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-sheet .legal-panel a:hover {
+  color: #e0f2fe;
+}
+
+@media (max-width: 480px) {
+  .legal-panel--sheet {
+    max-height: min(90vh, 52rem);
+    border-radius: 1rem;
+  }
+}
