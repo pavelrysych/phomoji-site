@@ -4,10 +4,10 @@ Full-screen background video, home page, and legal pages (**Terms of Service**, 
 
 ## Structure
 
-- `index.html` — landing with **Phomoji** title and links to legal pages
-- `terms.html` — Terms of Service
-- `privacy.html` — Privacy Policy
-- `styles.css` — shared layout and typography
+- `index.html` — single page: hero + Terms + Privacy (switched client-side; **no full reload** when using in-app links `#/terms`, `#/privacy`)
+- `app.js` — hash routing (`#/`, `#/terms`, `#/privacy`), **Back** returns to home
+- `terms.html` / `privacy.html` — redirect to `index.html#/…` for old bookmarks or direct URLs
+- `styles.css` — layout and typography
 - `assets/background.mp4` — background video (keep this file when deploying)
 
 ## Local preview
