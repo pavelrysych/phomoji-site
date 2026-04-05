@@ -66,11 +66,11 @@ body {
 }
 
 .hero-title {
-  font-family: "Italiana", serif;
+  font-family: "Playfair Display", "Times New Roman", Times, serif;
   font-weight: 400;
   font-size: clamp(3.5rem, 14vw, 11rem);
   line-height: 1;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: #fff;
   text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.35),
@@ -141,9 +141,9 @@ body {
 }
 
 .legal-panel h1 {
-  font-family: "Italiana", serif;
+  font-family: "Playfair Display", "Times New Roman", Times, serif;
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 0.35rem;
   letter-spacing: 0.02em;
 }
