@@ -59,29 +59,30 @@ body.sheet-open {
   flex-direction: column;
 }
 
-/* Home hero */
+/* Home hero — sit lower so the video (e.g. cloud) stays visible above */
 .hero {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem 1.5rem 4rem;
+  justify-content: flex-end;
+  padding-top: max(2rem, env(safe-area-inset-top, 0px));
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  /* ближе к низу экрана; safe-area — над вырезом / home indicator */
+  padding-bottom: max(0.75rem, min(4vh, 2rem), env(safe-area-inset-bottom, 0px));
   text-align: center;
 }
 
 .hero-title {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: "Italiana", Georgia, "Times New Roman", serif;
   font-weight: 400;
   font-style: normal;
   font-synthesis: none;
   font-size: clamp(3.5rem, 14vw, 11rem);
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.03em;
   color: #fff;
-  text-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.35),
-    0 8px 36px rgba(0, 0, 0, 0.5);
   margin-bottom: 2rem;
 }
 
@@ -99,13 +100,12 @@ body.sheet-open {
   justify-content: center;
   padding: 0.65rem 1.35rem;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
   color: #1c1917;
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 999px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
   transition: transform 0.15s ease, background 0.15s ease;
 }
 
