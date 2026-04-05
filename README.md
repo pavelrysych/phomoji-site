@@ -9,6 +9,7 @@ Full-screen background video, home page, and legal pages (**Terms of Service**, 
 - `terms.html` / `privacy.html` — redirect to `index.html#/…` for old bookmarks or direct URLs
 - `styles.css` — layout and typography
 - `assets/background.mp4` — background video (keep this file when deploying)
+- `assets/favicon.png` — favicon (cloud character)
 
 ## Local preview
 
