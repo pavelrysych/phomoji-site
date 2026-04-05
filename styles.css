@@ -1,13 +1,17 @@
 /* Phomoji — shared layout: full-screen video + readable overlay */
 
+@property --frame {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
 :root {
   --text: #f5f5f4;
   --text-muted: #d6d3d1;
   --panel: rgba(12, 10, 9, 0.72);
   --panel-border: rgba(255, 255, 255, 0.08);
   --accent: #e7e5e4;
-  /* толстая чёрная «паспарту» / рамка как у фото */
-  --frame: clamp(18px, 5vmin, 52px);
 }
 
 *,
@@ -24,6 +28,20 @@ html {
   height: 100%;
   background: #000;
   overflow: hidden;
+  /* сначала без рамки; класс .frame-ready (из app.js) плавно увеличивает --frame */
+  --frame: 0px;
+  transition: --frame 1.15s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+html.frame-ready {
+  --frame: clamp(18px, 5vmin, 52px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    transition: none;
+    --frame: clamp(18px, 5vmin, 52px);
+  }
 }
 
 body {
