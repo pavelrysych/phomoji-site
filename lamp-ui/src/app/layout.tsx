@@ -48,6 +48,10 @@ export const metadata: Metadata = {
   title: "Phomoji — Your forgotten photos, rediscovered.",
   description:
     "You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android.",
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/icon.png", sizes: "512x512", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
