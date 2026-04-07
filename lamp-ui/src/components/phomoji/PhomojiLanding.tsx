@@ -5,7 +5,7 @@ import { PrivacySheetContent, TermsSheetContent } from "./LegalSheets";
 type Route = "home" | "terms" | "privacy";
 
 const TITLES: Record<Route, string> = {
-  home: "Phomoji — Your forgotten photos, rediscovered.",
+  home: "Phomoji — Your forgotten photos, rediscovered daily.",
   terms: "Terms of Service — Phomoji",
   privacy: "Privacy Policy — Phomoji",
 };

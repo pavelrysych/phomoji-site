@@ -44,7 +44,7 @@ const phomojiSerif = Source_Serif_4({
   variable: "--font-phomoji-serif",
 });
 
-const siteTitle = "Phomoji — Your forgotten photos, rediscovered.";
+const siteTitle = "Phomoji — Your forgotten photos, rediscovered daily.";
 const siteDescription =
   "You have thousands of photos you never look at. Phomoji picks one and brings it back. Coming soon to iOS and Android.";
 
@@ -63,20 +63,11 @@ export const metadata: Metadata = {
     siteName: "Phomoji",
     type: "website",
     locale: "en_US",
-    images: [
-      {
-        url: "/icon.png",
-        width: 512,
-        height: 512,
-        alt: "Phomoji — clouds and forgotten photos",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/icon.png"],
   },
 };
 
