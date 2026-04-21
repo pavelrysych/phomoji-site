@@ -61,18 +61,27 @@
   }
 
   /*
-   * 100vh на iOS/Safari меняется вместе с панелью браузера при скролле —
-   * контейнер видео пересчитывается, object-fit: cover выглядит как «зум».
-   * 100svh привязано к «малым» вьюпортам и стабильнее при движении chrome UI.
+   * До JS: запас по svh. После — класс .phomoji-hero-locked с --phomoji-hero-h в px
+   * (фикс при монтировании/ориентации, без обновления при скролле — см. PhomojiLanding).
    */
   .phomoji-root {
     min-height: 100vh;
     min-height: 100svh;
   }
 
+  .phomoji-root.phomoji-hero-locked {
+    height: var(--phomoji-hero-h);
+    min-height: var(--phomoji-hero-h);
+  }
+
   .phomoji-root .page {
     min-height: 100vh;
     min-height: 100svh;
+  }
+
+  .phomoji-root.phomoji-hero-locked .page {
+    min-height: 100%;
+    height: 100%;
   }
 
   .phomoji-root .video-layer {

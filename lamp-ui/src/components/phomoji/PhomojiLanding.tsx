@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { PrivacySheetContent, TermsSheetContent } from "./LegalSheets";
 type Route = "home" | "terms" | "privacy";
 
@@ -78,6 +78,42 @@ export function PhomojiLanding() {
       rootRef.current?.classList.add("frame-ready");
     }, 550);
     return () => window.clearTimeout(t);
+  }, []);
+
+  /**
+   * iOS/Safari: 100vh/svh/dvh меняется при анимации панели браузера — контейнер
+   * видео пересчитывается, object-fit: cover выглядит как «зум».
+   * Фиксируем высоту героя в px (только max-width 768) при монтир. и смене
+   * ориентации; на resize при скролле НЕ переподписываемся.
+   */
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const mq = window.matchMedia("(max-width: 768px)");
+
+    const setMobileHeroLock = () => {
+      const el = rootRef.current;
+      if (!el) return;
+      if (!mq.matches) {
+        el.classList.remove("phomoji-hero-locked");
+        el.style.removeProperty("--phomoji-hero-h");
+        return;
+      }
+      el.style.setProperty("--phomoji-hero-h", `${window.innerHeight}px`);
+      el.classList.add("phomoji-hero-locked");
+    };
+
+    setMobileHeroLock();
+    mq.addEventListener("change", setMobileHeroLock);
+    const onOrientation = () => {
+      setTimeout(setMobileHeroLock, 300);
+    };
+    window.addEventListener("orientationchange", onOrientation);
+    return () => {
+      mq.removeEventListener("change", setMobileHeroLock);
+      window.removeEventListener("orientationchange", onOrientation);
+    };
   }, []);
 
   useEffect(() => {
