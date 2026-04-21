@@ -59,6 +59,30 @@
     --frame: 0px;
     transition: none;
   }
+
+  /*
+   * 100vh на iOS/Safari меняется вместе с панелью браузера при скролле —
+   * контейнер видео пересчитывается, object-fit: cover выглядит как «зум».
+   * 100svh привязано к «малым» вьюпортам и стабильнее при движении chrome UI.
+   */
+  .phomoji-root {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .phomoji-root .page {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .phomoji-root .video-layer {
+    transform: translateZ(0);
+  }
+
+  .phomoji-root .video-layer video {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
 }
 
 body.phomoji-sheet-open {
