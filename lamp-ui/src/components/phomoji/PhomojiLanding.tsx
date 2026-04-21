@@ -68,6 +68,8 @@ export function PhomojiLanding() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       rootRef.current?.classList.add("frame-ready");
       return;

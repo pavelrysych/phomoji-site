@@ -52,6 +52,15 @@
   }
 }
 
+/* Мобильные: без появляющейся рамки — герой на весь экран */
+@media (max-width: 768px) {
+  .phomoji-root,
+  .phomoji-root.frame-ready {
+    --frame: 0px;
+    transition: none;
+  }
+}
+
 body.phomoji-sheet-open {
   overflow: hidden;
   overscroll-behavior: none;
