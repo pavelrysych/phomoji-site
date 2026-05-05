@@ -1,6 +1,6 @@
-# Phomoji — static site
+# Phomoji
 
-Full-screen background video, home page, and legal pages (**Terms of Service**, **Privacy Policy**) aligned with [phomoji.com](https://phomoji.com).
+Website for [phomoji.com](https://phomoji.com). The production app lives in `lamp-ui/` and is a Next.js landing page for the Phomoji mobile app concept.
 
 ## Structure
 
@@ -28,8 +28,8 @@ Open `http://localhost:8080/` in a browser.
 
 ## Optional: React experiment (`lamp-ui/`)
 
-On branch `experiment/lamp-react`, the repo includes a **Next.js + TypeScript + Tailwind + shadcn** sub-app in `lamp-ui/` — the same **Phomoji** landing (video, title, legal sheets) as the static site, plus a **Lamp** section below on `/`. It does not replace the static landing; deploy or run it separately — see `lamp-ui/README.md`.
+The repo includes a **Next.js + TypeScript + Tailwind + shadcn** sub-app in `lamp-ui/` — the current production Phomoji landing with pastel hero artwork, feature sections, social metadata, favicon, and Terms/Privacy modals.
 
 ## Deploy
 
-Upload the whole folder to any static host (Netlify, Vercel, Cloudflare Pages, etc.) and point your domain’s DNS to the host as described in their docs. For production, deploy **either** the static files at the repo root **or** configure your host to build `lamp-ui/` as a separate app if you use that experiment.
+For Vercel production, configure **Root Directory = `lamp-ui`** and deploy from `main`. The root static files are retained for historical/static-host fallback only.

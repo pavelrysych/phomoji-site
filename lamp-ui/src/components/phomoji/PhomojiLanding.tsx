@@ -1,14 +1,41 @@
 "use client";
 
-import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { Sparkles, Heart, Image as ImageIcon, WandSparkles, Cloud, Type } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PrivacySheetContent, TermsSheetContent } from "./LegalSheets";
+
 type Route = "home" | "terms" | "privacy";
 
 const TITLES: Record<Route, string> = {
-  home: "Phomoji — Your forgotten photos, rediscovered daily.",
+  home: "Phomoji — Turn photos into expressive emoji magic.",
   terms: "Terms of Service — Phomoji",
   privacy: "Privacy Policy — Phomoji",
 };
+
+const steps = [
+  {
+    title: "Pick a memory",
+    text: "Start with a photo from your camera roll or let Phomoji surface one you forgot.",
+  },
+  {
+    title: "Make it expressive",
+    text: "Turn faces, clouds, moods, stickers and text into a playful emoji-style scene.",
+  },
+  {
+    title: "Rediscover daily",
+    text: "Get one small emotional time capsule every day and share it when it feels right.",
+  },
+];
+
+const features = [
+  { icon: ImageIcon, title: "Photo remix", text: "Transform portraits and memories into soft, expressive visuals." },
+  { icon: Cloud, title: "Cloud characters", text: "A lovable Phomoji companion brings mood and personality to the page." },
+  { icon: Heart, title: "Stickers & emotion", text: "Add hearts, rainbows, sparkles and feelings without clutter." },
+  { icon: WandSparkles, title: "Magic effects", text: "Gentle AI-style polish that keeps the original memory recognizable." },
+  { icon: Type, title: "Text moments", text: "Caption your rediscovered photos with short, personal notes." },
+  { icon: Sparkles, title: "Daily surprise", text: "A new photo prompt every day, designed for quick delight." },
+];
 
 function parseRoute(): Route {
   if (typeof window === "undefined") return "home";
@@ -23,11 +50,9 @@ function closeSheets() {
 }
 
 export function PhomojiLanding() {
-  const rootRef = useRef<HTMLDivElement>(null);
   const termsPanelRef = useRef<HTMLDivElement>(null);
   const privacyPanelRef = useRef<HTMLDivElement>(null);
   const [route, setRoute] = useState<Route>("home");
-  const appStoreGradId = `appstore-grad-${useId().replace(/:/g, "")}`;
 
   const applyRoute = useCallback((next: Route) => {
     const termsOpen = next === "terms";
@@ -36,7 +61,7 @@ export function PhomojiLanding() {
 
     document.body.classList.toggle("phomoji-sheet-open", anyOpen);
     document.title = TITLES[next] ?? TITLES.home;
-    window.scrollTo(0, 0);
+    if (next !== "home") window.scrollTo(0, 0);
 
     const activePanel = termsOpen
       ? termsPanelRef.current
@@ -67,56 +92,6 @@ export function PhomojiLanding() {
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      rootRef.current?.classList.add("frame-ready");
-      return;
-    }
-    const t = window.setTimeout(() => {
-      rootRef.current?.classList.add("frame-ready");
-    }, 550);
-    return () => window.clearTimeout(t);
-  }, []);
-
-  /**
-   * iOS/Safari: 100vh/svh/dvh меняется при анимации панели браузера — контейнер
-   * видео пересчитывается, object-fit: cover выглядит как «зум».
-   * Фиксируем высоту героя в px (только max-width 768) при монтир. и смене
-   * ориентации; на resize при скролле НЕ переподписываемся.
-   */
-  useLayoutEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    const mq = window.matchMedia("(max-width: 768px)");
-
-    const setMobileHeroLock = () => {
-      const el = rootRef.current;
-      if (!el) return;
-      if (!mq.matches) {
-        el.classList.remove("phomoji-hero-locked");
-        el.style.removeProperty("--phomoji-hero-h");
-        return;
-      }
-      el.style.setProperty("--phomoji-hero-h", `${window.innerHeight}px`);
-      el.classList.add("phomoji-hero-locked");
-    };
-
-    setMobileHeroLock();
-    mq.addEventListener("change", setMobileHeroLock);
-    const onOrientation = () => {
-      setTimeout(setMobileHeroLock, 300);
-    };
-    window.addEventListener("orientationchange", onOrientation);
-    return () => {
-      mq.removeEventListener("change", setMobileHeroLock);
-      window.removeEventListener("orientationchange", onOrientation);
-    };
-  }, []);
-
-  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && document.body.classList.contains("phomoji-sheet-open")) {
         closeSheets();
@@ -132,102 +107,137 @@ export function PhomojiLanding() {
 
   return (
     <>
-      <div ref={rootRef} className="phomoji-root">
-        <div className="video-layer" aria-hidden="true">
-          <video autoPlay muted loop playsInline>
-            <source src="/assets/background.mp4" type="video/mp4" />
-          </video>
+      <div className="phomoji-root">
+        <div className="phomoji-orb phomoji-orb--lavender" aria-hidden="true" />
+        <div className="phomoji-orb phomoji-orb--peach" aria-hidden="true" />
+        <div className="phomoji-float phomoji-float--one" aria-hidden="true">
+          ✨
+        </div>
+        <div className="phomoji-float phomoji-float--two" aria-hidden="true">
+          ♡
+        </div>
+        <div className="phomoji-float phomoji-float--three" aria-hidden="true">
+          ☁
         </div>
 
-        <div className="page">
-          <main className="hero">
-            <h1 className="hero-title">Phomoji</h1>
-            <div className="hero-bottom">
-              <div className="hero-actions">
-                <a className="btn btn--ghost" href="#/terms">
-                  Terms of Service
-                </a>{" "}
-                <a className="btn btn--ghost" href="#/privacy">
-                  Privacy Policy
+        <header className="phomoji-nav" aria-label="Primary navigation">
+          <a className="phomoji-brand" href="#/" aria-label="Phomoji home">
+            <Image src="/icon.png" alt="" width={36} height={36} priority />
+            <span>Phomoji</span>
+          </a>
+          <nav className="phomoji-links" aria-label="Legal links">
+            <a href="#/terms">Terms</a>
+            <a href="#/privacy">Privacy</a>
+          </nav>
+        </header>
+
+        <main>
+          <section className="phomoji-hero" aria-labelledby="phomoji-hero-title">
+            <div className="phomoji-hero-copy">
+              <p className="phomoji-kicker">
+                <Sparkles size={18} aria-hidden="true" />
+                Coming soon for iOS and Android
+              </p>
+              <h1 id="phomoji-hero-title">
+                Phomoji
+                <span>Turn photos into expressive emoji magic</span>
+              </h1>
+              <p className="phomoji-lede">
+                Rediscover forgotten photos as soft, playful emoji scenes with faces, clouds,
+                stickers, effects and tiny daily surprises.
+              </p>
+
+              <div className="phomoji-actions">
+                <a className="phomoji-button phomoji-button--primary" href="#how-it-works">
+                  See how it works
+                </a>
+                <a className="phomoji-button phomoji-button--ghost" href="#features">
+                  Explore features
                 </a>
               </div>
-              <aside
-                className="coming-soon"
-                aria-label="Coming soon on App Store and Google Play"
-              >
-                <p className="coming-soon-label">Coming Soon on</p>
-                <div className="coming-soon-stores" role="group" aria-label="App Store and Google Play">
-                  <span
-                    className="coming-soon-store coming-soon-store--appstore"
-                    title="App Store — coming soon"
-                  >
-                    <svg
-                      className="coming-soon-icon coming-soon-icon--appstore"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 800 800"
-                      width={28}
-                      height={28}
-                      aria-hidden="true"
-                    >
-                      <linearGradient
-                        id={appStoreGradId}
-                        gradientUnits="userSpaceOnUse"
-                        x1="400.05"
-                        y1="798.77"
-                        x2="400.05"
-                        y2="-1.23"
-                        gradientTransform="matrix(1 0 0 -1 0 798.77)"
-                      >
-                        <stop offset="0" stopColor="#18BFFB" />
-                        <stop offset="1" stopColor="#2072F3" />
-                      </linearGradient>
-                      <path
-                        fill={`url(#${appStoreGradId})`}
-                        d="M638.4 0H161.6C72.3 0 0 72.3 0 161.6v476.9C0 727.7 72.3 800 161.6 800h476.9c89.2 0 161.6-72.3 161.6-161.6V161.6C800 72.3 727.7 0 638.4 0z"
-                      />
-                      <path
-                        fill="#FFFFFF"
-                        d="M396.6,183.8l16.2-28c10-17.5,32.3-23.4,49.8-13.4s23.4,32.3,13.4,49.8L319.9,462.4h112.9c36.6,0,57.1,43,41.2,72.8H143c-20.2,0-36.4-16.2-36.4-36.4c0-20.2,16.2-36.4,36.4-36.4h92.8l118.8-205.9l-37.1-64.4c-10-17.5-4.1-39.6,13.4-49.8c17.5-10,39.6-4.1,49.8,13.4L396.6,183.8L396.6,183.8z M256.2,572.7l-35,60.7c-10,17.5-32.3,23.4-49.8,13.4S148,614.5,158,597l26-45C213.4,542.9,237.3,549.9,256.2,572.7L256.2,572.7z M557.6,462.6h94.7c20.2,0,36.4,16.2,36.4,36.4c0,20.2-16.2,36.4-36.4,36.4h-52.6l35.5,61.6c10,17.5,4.1,39.6-13.4,49.8c-17.5,10-39.6,4.1-49.8-13.4c-59.8-103.7-104.7-181.3-134.5-233c-30.5-52.6-8.7-105.4,12.8-123.3C474.2,318.1,509.9,380,557.6,462.6L557.6,462.6z"
-                      />
-                    </svg>
-                    <span className="visually-hidden">App Store</span>
-                  </span>
-                  <span
-                    className="coming-soon-store coming-soon-store--google"
-                    title="Google Play — coming soon"
-                  >
-                    <svg
-                      className="coming-soon-icon coming-soon-icon--google"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="30 336.7 120.9 129.2"
-                      width={26}
-                      height={28}
-                      aria-hidden="true"
-                    >
-                      <path
-                        fill="#FFD400"
-                        d="M119.2,421.2c15.3-8.4,27-14.8,28-15.3c3.2-1.7,6.5-6.2,0-9.7c-2.1-1.1-13.4-7.3-28-15.3l-20.1,20.2L119.2,421.2z"
-                      />
-                      <path
-                        fill="#FF3333"
-                        d="M99.1,401.1l-64.2,64.7c1.5,0.2,3.2-0.2,5.2-1.3c4.2-2.3,48.8-26.7,79.1-43.3L99.1,401.1L99.1,401.1z"
-                      />
-                      <path
-                        fill="#48FF48"
-                        d="M99.1,401.1l20.1-20.2c0,0-74.6-40.7-79.1-43.1c-1.7-1-3.6-1.3-5.3-1L99.1,401.1z"
-                      />
-                      <path
-                        fill="#3BCCFF"
-                        d="M99.1,401.1l-64.3-64.3c-2.6,0.6-4.8,2.9-4.8,7.6c0,7.5,0,107.5,0,113.8c0,4.3,1.7,7.4,4.9,7.7L99.1,401.1z"
-                      />
-                    </svg>
-                    <span className="visually-hidden">Google Play</span>
-                  </span>
+
+              <aside className="phomoji-store-strip" aria-label="Coming soon on app stores">
+                <span>Coming soon on</span>
+                <div>
+                  <span>App Store</span>
+                  <span>Google Play</span>
                 </div>
               </aside>
             </div>
-          </main>
-        </div>
+
+            <div className="phomoji-hero-art" aria-label="Phomoji app preview">
+              <Image
+                src="/phomoji-hero.png"
+                alt="Phomoji app preview with a phone mockup and expressive cloud character"
+                width={1024}
+                height={576}
+                priority
+                sizes="(max-width: 768px) 100vw, 54vw"
+              />
+            </div>
+          </section>
+
+          <section id="how-it-works" className="phomoji-section phomoji-section--steps">
+            <div className="phomoji-section-heading">
+              <p>How it works</p>
+              <h2>From camera roll to tiny emotional story.</h2>
+            </div>
+            <div className="phomoji-step-grid">
+              {steps.map((step, index) => (
+                <article className="phomoji-step-card" key={step.title}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="features" className="phomoji-section">
+            <div className="phomoji-section-heading">
+              <p>Features</p>
+              <h2>Everything in the image, rebuilt as a landing page.</h2>
+            </div>
+            <div className="phomoji-feature-grid">
+              {features.map(({ icon: Icon, title, text }) => (
+                <article className="phomoji-feature-card" key={title}>
+                  <span aria-hidden="true">
+                    <Icon size={22} />
+                  </span>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="phomoji-section phomoji-section--preview">
+            <div className="phomoji-preview-card">
+              <div>
+                <p className="phomoji-kicker">Daily memory drop</p>
+                <h2>Every day, a random memory becomes something cute.</h2>
+                <p>
+                  Phomoji is designed for a tiny daily ritual: open the app, rediscover one
+                  forgotten photo, and turn it into a playful expressive moment.
+                </p>
+              </div>
+              <div className="phomoji-mini-gallery" aria-hidden="true">
+                <span>☁</span>
+                <span>🦄</span>
+                <span>😍</span>
+                <span>🌈</span>
+              </div>
+            </div>
+          </section>
+
+          <footer className="phomoji-footer">
+            <p>Phomoji © 2026. Your forgotten photos, rediscovered.</p>
+            <nav aria-label="Footer links">
+              <a href="#/terms">Terms of Service</a>
+              <a href="#/privacy">Privacy Policy</a>
+            </nav>
+          </footer>
+        </main>
       </div>
 
       <div

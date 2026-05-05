@@ -1,97 +1,448 @@
-/* Phomoji — shared layout: full-screen video + readable overlay */
-
-@property --frame {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0px;
-}
+/* Phomoji — pastel product landing inspired by the current brand artwork */
 
 :root {
-  --text: #f5f5f4;
-  --text-muted: #d6d3d1;
-  --panel: rgba(12, 10, 9, 0.72);
-  --panel-border: rgba(255, 255, 255, 0.08);
-  --accent: #e7e5e4;
+  --phomoji-ink: #201536;
+  --phomoji-muted: #6f6386;
+  --phomoji-purple: #6f4be8;
+  --phomoji-pink: #df5cae;
+  --phomoji-peach: #ffd7c7;
+  --phomoji-lavender: #eee8ff;
+  --phomoji-card: rgba(255, 255, 255, 0.7);
+  --phomoji-card-strong: rgba(255, 255, 255, 0.9);
+  --phomoji-border: rgba(111, 75, 232, 0.14);
 }
 
-/* Scoped to hero section — не трогаем глобальный reset Next/shadcn */
 .phomoji-root,
 .phomoji-root *::before,
 .phomoji-root *::after {
   box-sizing: border-box;
 }
 
-/* НЕ используем `.phomoji-root *` — он сильнее, чем `.btn` / `.coming-soon-*`, и обнуляет padding, ломая кнопки и иконки */
-.phomoji-root :where(p) {
+.phomoji-root :where(p, h1, h2, h3) {
   margin: 0;
 }
 
 .phomoji-root {
   position: relative;
-  scroll-behavior: smooth;
-  min-height: calc(100vh - 2 * var(--frame));
-  margin: var(--frame);
   overflow: hidden;
-  font-family: var(--font-phomoji-serif), Georgia, serif;
-  font-size: 1.05rem;
+  min-height: 100vh;
+  color: var(--phomoji-ink);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.9), transparent 24rem),
+    radial-gradient(circle at 78% 16%, rgba(255, 211, 188, 0.86), transparent 28rem),
+    radial-gradient(circle at 22% 82%, rgba(224, 214, 255, 0.9), transparent 30rem),
+    linear-gradient(135deg, #f6f0ff 0%, #fff0ea 52%, #ffe0df 100%);
+  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
+}
+
+.phomoji-root a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.phomoji-orb,
+.phomoji-float {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.phomoji-orb {
+  filter: blur(4px);
+  border-radius: 999px;
+  opacity: 0.68;
+}
+
+.phomoji-orb--lavender {
+  top: 8rem;
+  left: -7rem;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(165, 143, 255, 0.36);
+}
+
+.phomoji-orb--peach {
+  right: -9rem;
+  bottom: 8rem;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(255, 183, 168, 0.44);
+}
+
+.phomoji-float {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  color: var(--phomoji-purple);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 18px 50px rgba(111, 75, 232, 0.12);
+  backdrop-filter: blur(16px);
+  animation: phomoji-bob 7s ease-in-out infinite;
+}
+
+.phomoji-float--one {
+  top: 16%;
+  right: 14%;
+}
+
+.phomoji-float--two {
+  top: 39%;
+  left: 7%;
+  animation-delay: -2s;
+}
+
+.phomoji-float--three {
+  right: 9%;
+  bottom: 28%;
+  animation-delay: -4s;
+}
+
+.phomoji-nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 2rem, 1180px);
+  margin: 0 auto;
+  padding: 1.15rem 0;
+}
+
+.phomoji-brand,
+.phomoji-links {
+  display: inline-flex;
+  align-items: center;
+}
+
+.phomoji-brand {
+  gap: 0.65rem;
+  font-family: var(--font-phomoji-playfair), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.phomoji-brand img {
+  border-radius: 0.85rem;
+  box-shadow: 0 10px 24px rgba(111, 75, 232, 0.18);
+}
+
+.phomoji-links {
+  gap: 0.4rem;
+  padding: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(14px);
+}
+
+.phomoji-links a {
+  min-height: 2.25rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  color: #5c4d75;
+  font-size: 0.92rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.phomoji-links a:hover {
+  color: var(--phomoji-ink);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.phomoji-hero,
+.phomoji-section,
+.phomoji-footer {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2rem, 1180px);
+  margin: 0 auto;
+}
+
+.phomoji-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(22rem, 1.08fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  min-height: calc(100svh - 5rem);
+  padding: clamp(2rem, 5vw, 5rem) 0 clamp(3rem, 6vw, 6rem);
+}
+
+.phomoji-hero-copy {
+  max-width: 38rem;
+}
+
+.phomoji-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  color: var(--phomoji-purple);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.phomoji-hero h1 {
+  font-family: var(--font-phomoji-playfair), Georgia, serif;
+  font-size: clamp(4.6rem, 11vw, 9.5rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  color: #6b49dc;
+}
+
+.phomoji-hero h1 span {
+  display: block;
+  max-width: 34rem;
+  margin-top: 1.35rem;
+  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  color: var(--phomoji-ink);
+}
+
+.phomoji-lede {
+  max-width: 34rem;
+  margin-top: 1.1rem;
+  color: var(--phomoji-muted);
+  font-size: clamp(1.05rem, 1.6vw, 1.28rem);
   line-height: 1.65;
-  color: var(--text);
-  background: #0c0a09;
-  --frame: 0px;
-  transition: --frame 1.75s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.phomoji-root.frame-ready {
-  --frame: clamp(28px, 9vmin, 96px);
+.phomoji-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .phomoji-root {
-    transition: none;
-    --frame: clamp(28px, 9vmin, 96px);
-  }
+.phomoji-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.15rem;
+  padding: 0.85rem 1.35rem;
+  border-radius: 999px;
+  font-weight: 800;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-/* Мобильные: без появляющейся рамки — герой на весь экран */
-@media (max-width: 768px) {
-  .phomoji-root,
-  .phomoji-root.frame-ready {
-    --frame: 0px;
-    transition: none;
-  }
+.phomoji-button:hover {
+  transform: translateY(-2px);
+}
 
-  /*
-   * До JS: запас по svh. После — класс .phomoji-hero-locked с --phomoji-hero-h в px
-   * (фикс при монтировании/ориентации, без обновления при скролле — см. PhomojiLanding).
-   */
-  .phomoji-root {
-    min-height: 100vh;
-    min-height: 100svh;
-  }
+.phomoji-button--primary {
+  color: #fff;
+  background: linear-gradient(135deg, #6f4be8, #df5cae);
+  box-shadow: 0 18px 40px rgba(111, 75, 232, 0.28);
+}
 
-  .phomoji-root.phomoji-hero-locked {
-    height: var(--phomoji-hero-h);
-    min-height: var(--phomoji-hero-h);
-  }
+.phomoji-button--ghost {
+  color: var(--phomoji-ink);
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
 
-  .phomoji-root .page {
-    min-height: 100vh;
-    min-height: 100svh;
-  }
+.phomoji-store-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+  color: var(--phomoji-muted);
+  font-size: 0.96rem;
+}
 
-  .phomoji-root.phomoji-hero-locked .page {
-    min-height: 100%;
-    height: 100%;
-  }
+.phomoji-store-strip div {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
 
-  .phomoji-root .video-layer {
-    transform: translateZ(0);
-  }
+.phomoji-store-strip div span {
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  color: var(--phomoji-ink);
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
 
-  .phomoji-root .video-layer video {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
+.phomoji-hero-art {
+  position: relative;
+  isolation: isolate;
+}
+
+.phomoji-hero-art::before {
+  content: "";
+  position: absolute;
+  inset: 10% 4% -5% 12%;
+  z-index: -1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.52);
+  filter: blur(28px);
+}
+
+.phomoji-hero-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: clamp(1.5rem, 3vw, 2.5rem);
+  filter: drop-shadow(0 30px 70px rgba(115, 77, 211, 0.18));
+}
+
+.phomoji-section {
+  padding: clamp(3.5rem, 7vw, 6.5rem) 0;
+}
+
+.phomoji-section-heading {
+  max-width: 44rem;
+  margin-bottom: 1.8rem;
+}
+
+.phomoji-section-heading p {
+  color: var(--phomoji-pink);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.phomoji-section-heading h2,
+.phomoji-preview-card h2 {
+  margin-top: 0.55rem;
+  font-family: var(--font-phomoji-playfair), Georgia, serif;
+  font-size: clamp(2.1rem, 4.7vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.phomoji-step-grid,
+.phomoji-feature-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.phomoji-step-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.phomoji-feature-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.phomoji-step-card,
+.phomoji-feature-card,
+.phomoji-preview-card {
+  border: 1px solid var(--phomoji-border);
+  border-radius: 2rem;
+  background: var(--phomoji-card);
+  box-shadow: 0 24px 70px rgba(85, 62, 147, 0.09);
+  backdrop-filter: blur(18px);
+}
+
+.phomoji-step-card {
+  min-height: 15rem;
+  padding: 1.4rem;
+}
+
+.phomoji-step-card span {
+  display: inline-flex;
+  margin-bottom: 2.2rem;
+  color: rgba(111, 75, 232, 0.34);
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
+
+.phomoji-step-card h3,
+.phomoji-feature-card h3 {
+  color: var(--phomoji-ink);
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.phomoji-step-card p,
+.phomoji-feature-card p,
+.phomoji-preview-card p {
+  margin-top: 0.7rem;
+  color: var(--phomoji-muted);
+  line-height: 1.6;
+}
+
+.phomoji-feature-card {
+  grid-column: span 2;
+  padding: 1.25rem;
+}
+
+.phomoji-feature-card > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  border-radius: 1.05rem;
+  color: var(--phomoji-purple);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(238, 232, 255, 0.74));
+}
+
+.phomoji-preview-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.72fr);
+  align-items: center;
+  gap: 2rem;
+  padding: clamp(1.4rem, 4vw, 3rem);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(250, 226, 255, 0.72)),
+    var(--phomoji-card-strong);
+}
+
+.phomoji-preview-card > div:first-child {
+  max-width: 42rem;
+}
+
+.phomoji-mini-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.phomoji-mini-gallery span {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.78), 0 18px 50px rgba(111, 75, 232, 0.12);
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+}
+
+.phomoji-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem 0 2.4rem;
+  color: var(--phomoji-muted);
+  font-size: 0.95rem;
+}
+
+.phomoji-footer nav {
+  display: inline-flex;
+  gap: 1rem;
+}
+
+.phomoji-footer a {
+  color: var(--phomoji-purple);
+  font-weight: 700;
 }
 
 body.phomoji-sheet-open {
@@ -99,240 +450,6 @@ body.phomoji-sheet-open {
   overscroll-behavior: none;
 }
 
-/* Background video — только внутри секции героя */
-.phomoji-root .video-layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-  background: #000;
-}
-
-.video-layer video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-/* Page shell above video */
-.page {
-  position: relative;
-  z-index: 1;
-  min-height: calc(100vh - 2 * var(--frame));
-  display: flex;
-  flex-direction: column;
-}
-
-/* Home hero — sit lower so the video (e.g. cloud) stays visible above */
-.hero {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-top: max(2rem, env(safe-area-inset-top, 0px));
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  /* ближе к низу экрана; safe-area — над вырезом / home indicator */
-  padding-bottom: max(0.75rem, min(4vh, 2rem), env(safe-area-inset-bottom, 0px));
-  text-align: center;
-}
-
-.hero-title {
-  font-family: var(--font-phomoji-italiana), Georgia, "Times New Roman", serif;
-  font-weight: 400;
-  font-style: normal;
-  font-synthesis: none;
-  font-size: clamp(3.5rem, 14vw, 11rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: #fff;
-  margin-bottom: 2rem;
-}
-
-/* Одна зона внизу: кнопки + Coming Soon — без fixed, без наложений */
-.hero-bottom {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem 1.25rem;
-  width: 100%;
-  max-width: min(100%, 52rem);
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.btn {
-  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.65rem 1.35rem;
-  font-size: 0.95rem;
-  font-weight: 400;
-  text-decoration: none;
-  color: #1c1917;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 999px;
-  transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  background: #fff;
-}
-
-.btn--ghost {
-  color: var(--accent);
-  background: rgba(0, 0, 0, 0.35);
-  border-color: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
-}
-
-.btn--ghost:hover {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-/* Coming Soon — текст + иконки без пилюли */
-.coming-soon {
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 0.55rem;
-  flex-shrink: 0;
-  max-width: 100%;
-}
-
-.coming-soon-label {
-  margin: 0;
-  flex-shrink: 0;
-  white-space: nowrap;
-  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: normal;
-  text-transform: none;
-  color: #fff;
-}
-
-.coming-soon-stores {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.coming-soon-store {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 0.55rem;
-  background: rgba(0, 0, 0, 0.38);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  pointer-events: auto;
-  color: #fff;
-}
-
-.coming-soon-icon {
-  width: 1.35rem;
-  height: 1.35rem;
-  display: block;
-}
-
-/* Full-color App Store tile (без отдельной подложки) */
-.coming-soon-store--appstore {
-  padding: 0;
-  overflow: hidden;
-  background: transparent;
-  border: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-radius: 22%;
-}
-
-/* Google Play — только логотип, без чёрной «кнопки» */
-.coming-soon-store--google {
-  width: auto;
-  height: auto;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-.coming-soon-icon--google {
-  width: 1.6rem;
-  height: 1.6rem;
-  display: block;
-}
-
-.coming-soon-icon--appstore {
-  width: 100%;
-  height: 100%;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-@media (max-width: 380px) {
-  .hero-bottom {
-    gap: 0.75rem 0.85rem;
-  }
-
-  .coming-soon {
-    gap: 0.45rem;
-  }
-
-  .coming-soon-label {
-    font-size: 0.82rem;
-  }
-
-  .coming-soon-store:not(.coming-soon-store--google) {
-    width: 1.6rem;
-    height: 1.6rem;
-  }
-
-  .coming-soon-icon:not(.coming-soon-icon--google):not(.coming-soon-icon--appstore) {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .coming-soon-icon--google {
-    width: 1.45rem;
-    height: 1.45rem;
-  }
-}
-
-/* Modal popups (Terms / Privacy) — по центру экрана */
-/* Закрытые окна: атрибут hidden в разметке; подстраховка на случай отсутствия стилей */
 .legal-sheet[hidden],
 .sheet-backdrop[hidden] {
   display: none !important;
@@ -340,16 +457,14 @@ body.phomoji-sheet-open {
 
 .sheet-backdrop {
   position: fixed;
-  top: var(--frame);
-  right: var(--frame);
-  bottom: var(--frame);
-  left: var(--frame);
-  z-index: 15;
-  background: rgba(0, 0, 0, 0.52);
+  inset: 0;
+  z-index: 40;
+  background: rgba(34, 21, 58, 0.45);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.28s ease, visibility 0.28s ease;
   pointer-events: none;
+  backdrop-filter: blur(4px);
 }
 
 .sheet-backdrop.is-visible {
@@ -358,11 +473,10 @@ body.phomoji-sheet-open {
   pointer-events: auto;
 }
 
-/* Обёртка: flex-центр, без привязки к низу */
 .legal-sheet {
   position: fixed;
-  inset: var(--frame);
-  z-index: 20;
+  inset: 0;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,31 +495,30 @@ body.phomoji-sheet-open {
 }
 
 .sheet-close {
-  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
   position: absolute;
   top: 0.85rem;
   right: 0.85rem;
   z-index: 2;
-  width: 2.5rem;
-  height: 2.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
   padding: 0;
   margin: 0;
+  border: 1px solid rgba(111, 75, 232, 0.14);
+  border-radius: 999px;
+  color: var(--phomoji-ink);
+  background: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
   font-size: 1.65rem;
   font-weight: 300;
   line-height: 1;
-  color: var(--accent);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--panel-border);
-  border-radius: 999px;
-  cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .sheet-close:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: #fff;
 }
 
 .sheet-close:active {
@@ -414,92 +527,56 @@ body.phomoji-sheet-open {
 
 .legal-panel {
   width: 100%;
-  max-width: 42rem;
-  max-height: min(82vh, calc(100vh - 3rem));
+  max-width: 44rem;
+  max-height: min(85vh, 54rem);
+  padding: 1.85rem 1.5rem 2rem;
   overflow-y: auto;
-  padding: 1.75rem 1.5rem 2rem;
-  background: var(--panel);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--panel-border);
-  border-radius: 1rem;
+  border: 1px solid rgba(111, 75, 232, 0.14);
+  border-radius: 1.35rem;
+  color: var(--phomoji-ink);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 80px rgba(42, 24, 76, 0.28);
+  scrollbar-color: rgba(111, 75, 232, 0.28) transparent;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
-}
-
-.legal-panel::-webkit-scrollbar {
-  width: 5px;
-}
-
-.legal-panel::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.legal-panel::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 100px;
-}
-
-.legal-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.32);
 }
 
 .legal-panel--sheet {
   position: relative;
-  pointer-events: auto;
-  max-height: min(85vh, 52rem);
-  width: 100%;
   margin: 0 auto;
-  border-radius: 1rem;
   -webkit-overflow-scrolling: touch;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
 }
 
 .legal-panel--sheet > h1 {
   padding-right: 3rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .legal-sheet,
-  .sheet-backdrop {
-    transition-duration: 0.01ms;
-  }
-}
-
-/* Явный светлый текст: body в Next задаёт тёмный text-foreground */
-.legal-sheet .legal-panel,
-.legal-sheet .legal-panel p,
-.legal-sheet .legal-panel li {
-  color: #f5f5f4;
-}
-
 .legal-sheet .legal-panel h1 {
-  font-family: var(--font-phomoji-playfair), "Times New Roman", Times, serif;
+  margin-bottom: 0.35rem;
+  color: var(--phomoji-ink);
+  font-family: var(--font-phomoji-playfair), Georgia, serif;
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 0.35rem;
-  letter-spacing: 0.02em;
-  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
 .legal-sheet .effective {
-  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.78);
   margin-bottom: 1.75rem;
+  color: var(--phomoji-muted);
+  font-size: 0.9rem;
 }
 
 .legal-sheet .legal-panel h2 {
-  font-family: var(--font-phomoji-sans), system-ui, sans-serif;
-  font-size: 1.05rem;
-  font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #ffffff;
+  color: var(--phomoji-ink);
+  font-size: 1.05rem;
+  font-weight: 800;
 }
 
 .legal-sheet .legal-panel p {
   margin-bottom: 0.85rem;
+  color: #3c3153;
+  line-height: 1.65;
 }
 
 .legal-sheet .legal-panel ul {
@@ -508,25 +585,126 @@ body.phomoji-sheet-open {
 
 .legal-sheet .legal-panel li {
   margin-bottom: 0.4rem;
+  color: #3c3153;
 }
 
 .legal-sheet .legal-panel strong {
-  color: #ffffff;
+  color: var(--phomoji-ink);
 }
 
 .legal-sheet .legal-panel a {
-  color: #bfdbfe;
+  color: var(--phomoji-purple);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.legal-sheet .legal-panel a:hover {
-  color: #e0f2fe;
+@keyframes phomoji-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(4deg);
+  }
 }
 
-@media (max-width: 480px) {
-  .legal-panel--sheet {
-    max-height: min(90vh, 52rem);
+@media (max-width: 980px) {
+  .phomoji-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 2rem;
+  }
+
+  .phomoji-hero-copy {
+    max-width: 46rem;
+  }
+
+  .phomoji-hero-art {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+
+  .phomoji-step-grid,
+  .phomoji-feature-grid,
+  .phomoji-preview-card {
+    grid-template-columns: 1fr;
+  }
+
+  .phomoji-feature-card {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .phomoji-nav {
+    align-items: flex-start;
+    padding-top: 0.9rem;
+  }
+
+  .phomoji-brand span {
+    display: none;
+  }
+
+  .phomoji-links a {
+    min-height: 2.55rem;
+    padding-inline: 0.8rem;
+  }
+
+  .phomoji-hero,
+  .phomoji-section,
+  .phomoji-footer {
+    width: min(100% - 1.25rem, 1180px);
+  }
+
+  .phomoji-hero {
+    gap: 1.4rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .phomoji-hero h1 {
+    font-size: clamp(4rem, 20vw, 6.6rem);
+  }
+
+  .phomoji-actions {
+    flex-direction: column;
+  }
+
+  .phomoji-button {
+    width: 100%;
+  }
+
+  .phomoji-step-card,
+  .phomoji-feature-card,
+  .phomoji-preview-card {
+    border-radius: 1.45rem;
+  }
+
+  .phomoji-mini-gallery {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .phomoji-mini-gallery span {
+    border-radius: 1.1rem;
+  }
+
+  .phomoji-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legal-panel {
+    max-height: min(90vh, 54rem);
     border-radius: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phomoji-float,
+  .phomoji-button,
+  .phomoji-links a,
+  .legal-sheet,
+  .sheet-backdrop {
+    animation: none;
+    transition-duration: 0.01ms;
   }
 }
