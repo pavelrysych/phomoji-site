@@ -44,9 +44,9 @@ const phomojiSerif = Source_Serif_4({
   variable: "--font-phomoji-serif",
 });
 
-const siteTitle = "Phomoji — Turn photos into expressive emoji magic.";
+const siteTitle = "Phomoji — Emoji memories that reveal original photos.";
 const siteDescription =
-  "Turn forgotten photos into playful emoji-style memories with clouds, stickers, effects and daily rediscovery. Coming soon to iOS and Android.";
+  "Phomoji shows forgotten photos as playful emoji-style memories first. Tap to reveal the original photo. Coming soon to iOS and Android.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://phomoji.com"),

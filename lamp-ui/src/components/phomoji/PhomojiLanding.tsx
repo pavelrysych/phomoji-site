@@ -8,33 +8,33 @@ import { PrivacySheetContent, TermsSheetContent } from "./LegalSheets";
 type Route = "home" | "terms" | "privacy";
 
 const TITLES: Record<Route, string> = {
-  home: "Phomoji — Turn photos into expressive emoji magic.",
+  home: "Phomoji — Emoji memories that reveal the original photo.",
   terms: "Terms of Service — Phomoji",
   privacy: "Privacy Policy — Phomoji",
 };
 
 const steps = [
   {
-    title: "Pick a memory",
-    text: "Start with a photo from your camera roll or let Phomoji surface one you forgot.",
+    title: "See the emoji first",
+    text: "Each memory opens as a playful emoji-style version, so the feeling comes before the exact photo.",
   },
   {
-    title: "Make it expressive",
-    text: "Turn faces, clouds, moods, stickers and text into a playful emoji-style scene.",
+    title: "Tap to reveal",
+    text: "One tap brings back the original image, turning every reveal into a tiny surprise.",
   },
   {
     title: "Rediscover daily",
-    text: "Get one small emotional time capsule every day and share it when it feels right.",
+    text: "A forgotten photo becomes a small emotional time capsule you can enjoy, save or share.",
   },
 ];
 
 const features = [
-  { icon: ImageIcon, title: "Photo remix", text: "Transform portraits and memories into soft, expressive visuals." },
+  { icon: ImageIcon, title: "Emoji-first memories", text: "Photos appear as soft expressive emoji scenes before the original is shown." },
   { icon: Cloud, title: "Cloud characters", text: "A lovable Phomoji companion brings mood and personality to the page." },
   { icon: Heart, title: "Stickers & emotion", text: "Add hearts, rainbows, sparkles and feelings without clutter." },
   { icon: WandSparkles, title: "Magic effects", text: "Gentle AI-style polish that keeps the original memory recognizable." },
-  { icon: Type, title: "Text moments", text: "Caption your rediscovered photos with short, personal notes." },
-  { icon: Sparkles, title: "Daily surprise", text: "A new photo prompt every day, designed for quick delight." },
+  { icon: Type, title: "Tap-to-reveal", text: "Reveal the real photo only when you are ready to compare it with the emoji version." },
+  { icon: Sparkles, title: "Daily surprise", text: "A new hidden memory every day, designed for a quick moment of delight." },
 ];
 
 function parseRoute(): Route {
@@ -140,11 +140,11 @@ export function PhomojiLanding() {
               </p>
               <h1 id="phomoji-hero-title">
                 Phomoji
-                <span>Turn photos into expressive emoji magic</span>
+                <span>See the emoji first. Tap to reveal the original.</span>
               </h1>
               <p className="phomoji-lede">
-                Rediscover forgotten photos as soft, playful emoji scenes with faces, clouds,
-                stickers, effects and tiny daily surprises.
+                Phomoji turns forgotten photos into playful emoji-style memories first, then
+                reveals the original image when you tap.
               </p>
 
               <div className="phomoji-actions">
@@ -180,7 +180,7 @@ export function PhomojiLanding() {
           <section id="how-it-works" className="phomoji-section phomoji-section--steps">
             <div className="phomoji-section-heading">
               <p>How it works</p>
-              <h2>From camera roll to tiny emotional story.</h2>
+              <h2>A small reveal ritual for forgotten photos.</h2>
             </div>
             <div className="phomoji-step-grid">
               {steps.map((step, index) => (
@@ -196,7 +196,7 @@ export function PhomojiLanding() {
           <section id="features" className="phomoji-section">
             <div className="phomoji-section-heading">
               <p>Features</p>
-              <h2>Everything in the image, rebuilt as a landing page.</h2>
+              <h2>Designed around the moment before the reveal.</h2>
             </div>
             <div className="phomoji-feature-grid">
               {features.map(({ icon: Icon, title, text }) => (
@@ -215,10 +215,10 @@ export function PhomojiLanding() {
             <div className="phomoji-preview-card">
               <div>
                 <p className="phomoji-kicker">Daily memory drop</p>
-                <h2>Every day, a random memory becomes something cute.</h2>
+                <h2>Every day, one hidden photo starts as an emoji.</h2>
                 <p>
-                  Phomoji is designed for a tiny daily ritual: open the app, rediscover one
-                  forgotten photo, and turn it into a playful expressive moment.
+                  Open Phomoji, meet the emoji version first, then tap when curiosity wins and
+                  bring the original memory back.
                 </p>
               </div>
               <div className="phomoji-mini-gallery" aria-hidden="true">
@@ -231,7 +231,7 @@ export function PhomojiLanding() {
           </section>
 
           <footer className="phomoji-footer">
-            <p>Phomoji © 2026. Your forgotten photos, rediscovered.</p>
+            <p>Phomoji © 2026. Emoji first, original on tap.</p>
             <nav aria-label="Footer links">
               <a href="#/terms">Terms of Service</a>
               <a href="#/privacy">Privacy Policy</a>
