@@ -220,132 +220,21 @@
 
 .phomoji-phone {
   position: absolute;
-  top: clamp(0.2rem, 0.5vw, 0.5rem);
-  left: 9%;
-  width: min(47%, 29rem);
-  aspect-ratio: 0.57;
-  border: 0.7rem solid rgba(255, 255, 255, 0.72);
-  border-radius: 4rem;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 253, 0.88)),
-    radial-gradient(circle at 55% 38%, rgba(231, 204, 255, 0.74), transparent 16rem);
-  box-shadow:
-    inset 0 0 0 1px rgba(126, 91, 205, 0.08),
-    0 2rem 5rem rgba(90, 70, 176, 0.22);
-  overflow: hidden;
+  top: clamp(-0.9rem, -0.8vw, -0.25rem);
+  left: 10%;
+  z-index: 1;
+  width: min(43%, 26rem);
+  filter: drop-shadow(0 2rem 4.8rem rgba(90, 70, 176, 0.22));
 }
 
 .phomoji-phone::before {
-  content: "";
-  position: absolute;
-  inset: -2rem 1rem auto;
-  height: 20rem;
-  background: radial-gradient(circle, rgba(250, 220, 255, 0.85), transparent 70%);
+  content: none;
 }
 
-.phomoji-phone-status,
-.phomoji-phone-top,
-.phomoji-phone-nav {
-  position: relative;
-  z-index: 1;
-}
-
-.phomoji-phone-status {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.45rem 1.95rem 0;
-  color: #121022;
-  font-size: 0.96rem;
-  font-weight: 800;
-}
-
-.phomoji-phone-pill {
-  width: 6.8rem;
-  height: 1.45rem;
-  border-radius: 999px;
-  background: rgba(212, 181, 238, 0.62);
-}
-
-.phomoji-phone-icons {
-  width: 4.4rem;
-  height: 1.2rem;
-  background:
-    linear-gradient(90deg, #111 0 0.28rem, transparent 0.28rem 0.48rem, #111 0.48rem 0.82rem, transparent 0.82rem 1.05rem, #111 1.05rem 1.48rem, transparent 1.48rem 2.05rem, #111 2.05rem 3.1rem, transparent 3.1rem 3.35rem, #111 3.35rem 4.35rem);
-  border-radius: 0.25rem;
-  opacity: 0.92;
-}
-
-.phomoji-phone-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2.25rem 2rem 0;
-  color: #7a70b3;
-  font-family: var(--font-phomoji-playfair), Georgia, serif;
-  font-size: 2rem;
-  font-style: italic;
-  font-weight: 600;
-}
-
-.phomoji-crown {
-  display: grid;
-  place-items: center;
-  width: 2.8rem;
-  height: 2.8rem;
-  border-radius: 50%;
-  color: #ffbd56;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 0.85rem 1.8rem rgba(119, 82, 182, 0.15);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-  font-style: normal;
-}
-
-.phomoji-phone-nav {
-  position: absolute;
-  right: 1.1rem;
-  bottom: 1rem;
-  left: 1.1rem;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
-  min-height: 5.4rem;
-  padding: 0 1rem;
-  border-radius: 2rem;
-  color: #c7bed2;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 1.2rem 3rem rgba(116, 88, 180, 0.13);
-  text-align: center;
-  font-size: 0.68rem;
-}
-
-.phomoji-phone-nav span::before {
-  content: "";
+.phomoji-phone img {
   display: block;
-  width: 1rem;
-  height: 1rem;
-  margin: 0 auto 0.2rem;
-  border-radius: 0.35rem;
-  background: currentColor;
-  opacity: 0.65;
-}
-
-.phomoji-phone-nav .is-active {
-  color: #9762fa;
-}
-
-.phomoji-phone-nav b {
-  display: grid;
-  place-items: center;
-  width: 2.9rem;
-  height: 2.9rem;
-  margin: 0 auto;
-  border-radius: 50%;
-  color: #fff;
-  background: linear-gradient(135deg, #8c62ff, #dd5fd6);
-  box-shadow: 0 0.65rem 1.2rem rgba(146, 82, 230, 0.26);
-  font-size: 2rem;
-  line-height: 1;
+  width: 100%;
+  height: auto;
 }
 
 .phomoji-photo-card {
@@ -549,22 +438,32 @@
 .phomoji-feature-card,
 .phomoji-preview-card {
   border: 1px solid var(--phomoji-border);
-  border-radius: 2rem;
+  border-radius: 1.7rem;
   background: var(--phomoji-card);
   box-shadow: 0 24px 70px rgba(85, 62, 147, 0.09);
   backdrop-filter: blur(18px);
 }
 
 .phomoji-step-card {
-  min-height: 15rem;
-  padding: 1.4rem;
+  min-height: 22rem;
+  padding: 1rem 1.25rem 1.35rem;
+  overflow: hidden;
+}
+
+.phomoji-step-image {
+  display: block;
+  width: min(100%, 15rem);
+  height: 10.4rem;
+  margin: -0.35rem auto 0.75rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1rem 1.7rem rgba(105, 69, 165, 0.14));
 }
 
 .phomoji-step-card span {
   display: inline-flex;
-  margin-bottom: 2.2rem;
+  margin-bottom: 0.9rem;
   color: rgba(111, 75, 232, 0.34);
-  font-size: 2.2rem;
+  font-size: 1.75rem;
   font-weight: 900;
   letter-spacing: -0.06em;
 }
@@ -586,20 +485,35 @@
 }
 
 .phomoji-feature-card {
+  position: relative;
   grid-column: span 2;
-  padding: 1.25rem;
+  min-height: 19.5rem;
+  padding: 0.95rem 1.15rem 1.25rem;
+  overflow: hidden;
 }
 
-.phomoji-feature-card > span {
+.phomoji-feature-image {
+  display: block;
+  width: min(100%, 12.5rem);
+  height: 9rem;
+  margin: -0.4rem auto 0.7rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1rem 1.7rem rgba(105, 69, 165, 0.13));
+}
+
+.phomoji-feature-icon {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  margin-bottom: 1rem;
-  border-radius: 1.05rem;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.9rem;
   color: var(--phomoji-purple);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(238, 232, 255, 0.74));
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 0.9rem 1.8rem rgba(111, 75, 232, 0.11);
 }
 
 .phomoji-preview-card {
@@ -617,20 +531,17 @@
   max-width: 42rem;
 }
 
-.phomoji-mini-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
-}
-
-.phomoji-mini-gallery span {
+.phomoji-preview-visual {
   display: grid;
   place-items: center;
-  aspect-ratio: 1;
-  border-radius: 1.6rem;
-  background: rgba(255, 255, 255, 0.68);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.78), 0 18px 50px rgba(111, 75, 232, 0.12);
-  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  min-height: 18rem;
+}
+
+.phomoji-preview-visual img {
+  display: block;
+  width: min(100%, 25rem);
+  height: auto;
+  filter: drop-shadow(0 1.5rem 2.6rem rgba(105, 69, 165, 0.16));
 }
 
 .phomoji-footer {
@@ -859,8 +770,8 @@ body.phomoji-sheet-open {
   }
 
   .phomoji-phone {
-    left: 21%;
-    width: 48%;
+    left: 22%;
+    width: 43%;
   }
 
   .phomoji-photo-card--emoji {
@@ -889,6 +800,11 @@ body.phomoji-sheet-open {
 
   .phomoji-feature-card {
     grid-column: auto;
+  }
+
+  .phomoji-step-card,
+  .phomoji-feature-card {
+    min-height: auto;
   }
 }
 
@@ -953,59 +869,9 @@ body.phomoji-sheet-open {
   }
 
   .phomoji-phone {
-    left: 29%;
-    width: 45%;
-    border-width: 0.42rem;
-    border-radius: 2.4rem;
-  }
-
-  .phomoji-phone-status {
-    padding: 0.9rem 1rem 0;
-    font-size: 0.56rem;
-  }
-
-  .phomoji-phone-pill {
-    width: 3.8rem;
-    height: 0.85rem;
-  }
-
-  .phomoji-phone-icons {
-    width: 2.8rem;
-    transform: scale(0.7);
-    transform-origin: right center;
-  }
-
-  .phomoji-phone-top {
-    padding: 1.3rem 1.1rem 0;
-    font-size: 1.15rem;
-  }
-
-  .phomoji-crown {
-    width: 1.65rem;
-    height: 1.65rem;
-    font-size: 0.9rem;
-  }
-
-  .phomoji-phone-nav {
-    right: 0.65rem;
-    bottom: 0.58rem;
-    left: 0.65rem;
-    min-height: 3.1rem;
-    padding: 0 0.45rem;
-    border-radius: 1.15rem;
-    font-size: 0.38rem;
-  }
-
-  .phomoji-phone-nav span::before {
-    width: 0.58rem;
-    height: 0.58rem;
-    margin-bottom: 0.1rem;
-  }
-
-  .phomoji-phone-nav b {
-    width: 1.65rem;
-    height: 1.65rem;
-    font-size: 1.1rem;
+    top: -0.4rem;
+    left: 31%;
+    width: 40%;
   }
 
   .phomoji-photo-card {
@@ -1067,12 +933,13 @@ body.phomoji-sheet-open {
     border-radius: 1.45rem;
   }
 
-  .phomoji-mini-gallery {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .phomoji-step-image,
+  .phomoji-feature-image {
+    height: 8.8rem;
   }
 
-  .phomoji-mini-gallery span {
-    border-radius: 1.1rem;
+  .phomoji-preview-visual {
+    min-height: 13rem;
   }
 
   .phomoji-footer {

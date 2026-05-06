@@ -17,24 +17,57 @@ const steps = [
   {
     title: "See the emoji first",
     text: "Each memory opens as a playful emoji-style version, so the feeling comes before the exact photo.",
+    image: "/assets/story/step-child-emoji.png",
   },
   {
     title: "Tap to reveal",
     text: "One tap brings back the original image, turning every reveal into a tiny surprise.",
+    image: "/assets/story/step-puppy-emoji.png",
   },
   {
     title: "Rediscover daily",
     text: "A forgotten photo becomes a small emotional time capsule you can enjoy, save or share.",
+    image: "/assets/story/step-family-reveal.png",
   },
 ];
 
 const features = [
-  { icon: ImageIcon, title: "Emoji-first memories", text: "Photos appear as soft expressive emoji scenes before the original is shown." },
-  { icon: Cloud, title: "Cloud characters", text: "A lovable Phomoji companion brings mood and personality to the page." },
-  { icon: Heart, title: "Stickers & emotion", text: "Add hearts, rainbows, sparkles and feelings without clutter." },
-  { icon: WandSparkles, title: "Magic effects", text: "Gentle AI-style polish that keeps the original memory recognizable." },
-  { icon: Type, title: "Tap-to-reveal", text: "Reveal the real photo only when you are ready to compare it with the emoji version." },
-  { icon: Sparkles, title: "Daily surprise", text: "A new hidden memory every day, designed for a quick moment of delight." },
+  {
+    icon: ImageIcon,
+    title: "Emoji-first memories",
+    text: "Photos appear as soft expressive emoji scenes before the original is shown.",
+    image: "/assets/story/feature-emoji-first.png",
+  },
+  {
+    icon: Cloud,
+    title: "Cloud characters",
+    text: "A lovable Phomoji companion brings mood and personality to the page.",
+    image: "/assets/story/feature-cloud-character.png",
+  },
+  {
+    icon: Heart,
+    title: "Stickers & emotion",
+    text: "Add hearts, rainbows, sparkles and feelings without clutter.",
+    image: "/assets/story/feature-stickers-emotion.png",
+  },
+  {
+    icon: WandSparkles,
+    title: "Magic effects",
+    text: "Gentle AI-style polish that keeps the original memory recognizable.",
+    image: "/assets/story/feature-magic-effects.png",
+  },
+  {
+    icon: Type,
+    title: "Tap-to-reveal",
+    text: "Reveal the real photo only when you are ready to compare it with the emoji version.",
+    image: "/assets/story/feature-tap-reveal.png",
+  },
+  {
+    icon: Sparkles,
+    title: "Daily surprise",
+    text: "A new hidden memory every day, designed for a quick moment of delight.",
+    image: "/assets/story/feature-daily-surprise.png",
+  },
 ];
 
 function parseRoute(): Route {
@@ -145,22 +178,7 @@ export function PhomojiLanding() {
 
               <div className="phomoji-hero-stage" aria-label="Phomoji app preview">
                 <div className="phomoji-phone" aria-hidden="true">
-                  <div className="phomoji-phone-status">
-                    <span>9:41</span>
-                    <span className="phomoji-phone-pill" />
-                    <span className="phomoji-phone-icons" />
-                  </div>
-                  <div className="phomoji-phone-top">
-                    <span>Phomoji</span>
-                    <span className="phomoji-crown">♛</span>
-                  </div>
-                  <div className="phomoji-phone-nav">
-                    <span className="is-active">Home</span>
-                    <span>Discover</span>
-                    <b>+</b>
-                    <span>Activity</span>
-                    <span>Profile</span>
-                  </div>
+                  <Image src="/assets/hero/hero-phone-mockup.png" alt="" width={744} height={1488} priority />
                 </div>
 
                 <div className="phomoji-photo-card phomoji-photo-card--emoji" aria-hidden="true">
@@ -220,6 +238,7 @@ export function PhomojiLanding() {
             <div className="phomoji-step-grid">
               {steps.map((step, index) => (
                 <article className="phomoji-step-card" key={step.title}>
+                  <Image className="phomoji-step-image" src={step.image} alt="" width={333} height={345} />
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <h3>{step.title}</h3>
                   <p>{step.text}</p>
@@ -234,10 +253,11 @@ export function PhomojiLanding() {
               <h2>Designed around the moment before the reveal.</h2>
             </div>
             <div className="phomoji-feature-grid">
-              {features.map(({ icon: Icon, title, text }) => (
+              {features.map(({ icon: Icon, title, text, image }) => (
                 <article className="phomoji-feature-card" key={title}>
-                  <span aria-hidden="true">
-                    <Icon size={22} />
+                  <Image className="phomoji-feature-image" src={image} alt="" width={332} height={343} />
+                  <span className="phomoji-feature-icon" aria-hidden="true">
+                    <Icon size={18} />
                   </span>
                   <h3>{title}</h3>
                   <p>{text}</p>
@@ -256,11 +276,8 @@ export function PhomojiLanding() {
                   bring the original memory back.
                 </p>
               </div>
-              <div className="phomoji-mini-gallery" aria-hidden="true">
-                <span>☁</span>
-                <span>🦄</span>
-                <span>😍</span>
-                <span>🌈</span>
+              <div className="phomoji-preview-visual" aria-hidden="true">
+                <Image src="/assets/story/preview-family-pets.png" alt="" width={384} height={350} />
               </div>
             </div>
           </section>
