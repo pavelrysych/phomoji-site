@@ -118,26 +118,24 @@
 .phomoji-hero-brand {
   display: inline-flex;
   align-items: center;
-  gap: clamp(1.1rem, 1.8vw, 1.8rem);
+  gap: clamp(0.85rem, 1.25vw, 1.25rem);
   margin-bottom: clamp(3.3rem, 5.6vw, 5.4rem);
-  color: #fff;
-  font-family: var(--font-phomoji-italiana), var(--font-phomoji-playfair), Georgia, serif;
-  font-size: clamp(3.1rem, 4.1vw, 4.4rem);
-  font-weight: 400;
   line-height: 1;
-  text-shadow: 0 12px 34px rgba(111, 75, 232, 0.25);
 }
 
-.phomoji-hero-brand img {
+.phomoji-hero-brand > img:first-child {
   width: clamp(4.8rem, 6.5vw, 6.4rem);
   height: auto;
   transform: translateY(0.05em);
   filter: drop-shadow(0 0 1.1rem rgba(255, 255, 255, 0.58));
 }
 
-.phomoji-hero-brand span {
-  color: #fff;
-  text-shadow: 0 0.7rem 2rem rgba(104, 67, 190, 0.3);
+.phomoji-wordmark {
+  width: clamp(12.5rem, 18vw, 20rem);
+  height: auto;
+  filter:
+    drop-shadow(0 0.7rem 1.2rem rgba(116, 70, 191, 0.18))
+    drop-shadow(0 0 1rem rgba(255, 255, 255, 0.35));
 }
 
 .phomoji-hero h1 {
@@ -288,16 +286,13 @@
 .phomoji-reveal-arrow {
   position: absolute;
   z-index: 4;
-  top: 37%;
-  left: 48%;
-  width: min(16%, 10rem);
-  color: #9c62ff;
-  filter:
-    drop-shadow(0 0 0.25rem rgba(255, 255, 255, 0.85))
-    drop-shadow(0 0.8rem 1rem rgba(95, 55, 190, 0.18));
+  top: 36%;
+  left: 47%;
+  width: min(18%, 11rem);
+  filter: drop-shadow(0 0.9rem 1.2rem rgba(95, 55, 190, 0.16));
 }
 
-.phomoji-reveal-arrow svg {
+.phomoji-reveal-arrow img {
   display: block;
   width: 100%;
   height: auto;
@@ -747,7 +742,10 @@ body.phomoji-sheet-open {
 
   .phomoji-hero-brand {
     margin-bottom: 2.1rem;
-    font-size: clamp(2.5rem, 9vw, 3.5rem);
+  }
+
+  .phomoji-wordmark {
+    width: clamp(11.5rem, 36vw, 16rem);
   }
 
   .phomoji-hero h1 {
@@ -824,8 +822,12 @@ body.phomoji-sheet-open {
     margin-bottom: 1.55rem;
   }
 
-  .phomoji-hero-brand img {
+  .phomoji-hero-brand > img:first-child {
     width: 3.9rem;
+  }
+
+  .phomoji-wordmark {
+    width: clamp(9.8rem, 47vw, 12.8rem);
   }
 
   .phomoji-hero h1 {
@@ -898,8 +900,8 @@ body.phomoji-sheet-open {
 
   .phomoji-reveal-arrow {
     top: 39%;
-    left: 52%;
-    width: 4.9rem;
+    left: 51%;
+    width: 5.8rem;
   }
 
   .phomoji-touch {

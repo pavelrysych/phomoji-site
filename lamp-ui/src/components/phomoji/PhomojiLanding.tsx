@@ -150,7 +150,14 @@ export function PhomojiLanding() {
               <div className="phomoji-hero-copy">
                 <a className="phomoji-hero-brand" href="#/" aria-label="Phomoji home">
                   <Image src="/assets/hero/hero-cloud-main.png" alt="" width={536} height={401} priority aria-hidden="true" />
-                  <span>Phomoji</span>
+                  <Image
+                    className="phomoji-wordmark"
+                    src="/assets/brand/phomoji-wordmark-final-provided.png"
+                    alt="Phomoji"
+                    width={696}
+                    height={316}
+                    priority
+                  />
                 </a>
 
                 <h1 id="phomoji-hero-title">
@@ -178,7 +185,7 @@ export function PhomojiLanding() {
 
               <div className="phomoji-hero-stage" aria-label="Phomoji app preview">
                 <div className="phomoji-phone" aria-hidden="true">
-                  <Image src="/assets/hero/hero-phone-mockup.png" alt="" width={744} height={1488} priority />
+                  <Image src="/assets/hero/hero-phone-toy.png" alt="" width={763} height={1488} priority />
                 </div>
 
                 <div className="phomoji-photo-card phomoji-photo-card--emoji" aria-hidden="true">
@@ -194,24 +201,7 @@ export function PhomojiLanding() {
                 </div>
 
                 <div className="phomoji-reveal-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 170 92">
-                    <path
-                      d="M10 53C46 18 88 20 121 46"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeWidth="18"
-                    />
-                    <path d="M113 13 160 61 94 70Z" fill="currentColor" />
-                    <path
-                      d="M10 53C46 18 88 20 121 46"
-                      fill="none"
-                      stroke="#fff"
-                      strokeLinecap="round"
-                      strokeWidth="7"
-                      opacity=".75"
-                    />
-                  </svg>
+                  <Image src="/assets/hero/hero-reveal-arrow-glossy.png" alt="" width={420} height={165} />
                 </div>
 
                 <button className="phomoji-touch" type="button" aria-label="Reveal photo preview">
