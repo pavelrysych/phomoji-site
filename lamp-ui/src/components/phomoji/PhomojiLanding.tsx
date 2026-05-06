@@ -108,72 +108,107 @@ export function PhomojiLanding() {
   return (
     <>
       <div className="phomoji-root">
-        <div className="phomoji-orb phomoji-orb--lavender" aria-hidden="true" />
-        <div className="phomoji-orb phomoji-orb--peach" aria-hidden="true" />
-        <div className="phomoji-float phomoji-float--one" aria-hidden="true">
-          ✨
-        </div>
-        <div className="phomoji-float phomoji-float--two" aria-hidden="true">
-          ♡
-        </div>
-        <div className="phomoji-float phomoji-float--three" aria-hidden="true">
-          ☁
-        </div>
-
-        <header className="phomoji-nav" aria-label="Primary navigation">
-          <a className="phomoji-brand" href="#/" aria-label="Phomoji home">
-            <Image src="/icon.png" alt="" width={36} height={36} priority />
-            <span>Phomoji</span>
-          </a>
-          <nav className="phomoji-links" aria-label="Legal links">
-            <a href="#/terms">Terms</a>
-            <a href="#/privacy">Privacy</a>
-          </nav>
-        </header>
-
         <main>
           <section className="phomoji-hero" aria-labelledby="phomoji-hero-title">
-            <div className="phomoji-hero-copy">
-              <p className="phomoji-kicker">
-                <Sparkles size={18} aria-hidden="true" />
-                Coming soon for iOS and Android
-              </p>
-              <h1 id="phomoji-hero-title">
-                Phomoji
-                <span>See the emoji first. Tap to reveal the original.</span>
-              </h1>
-              <p className="phomoji-lede">
-                Phomoji turns forgotten photos into playful emoji-style memories first, then
-                reveals the original image when you tap.
-              </p>
+            <div className="phomoji-hero-glow phomoji-hero-glow--purple" aria-hidden="true" />
+            <div className="phomoji-hero-glow phomoji-hero-glow--peach" aria-hidden="true" />
 
-              <div className="phomoji-actions">
-                <a className="phomoji-button phomoji-button--primary" href="#how-it-works">
-                  See how it works
+            <div className="phomoji-hero-content">
+              <div className="phomoji-hero-copy">
+                <a className="phomoji-hero-brand" href="#/" aria-label="Phomoji home">
+                  <Image src="/assets/hero/hero-cloud-main.png" alt="" width={536} height={401} priority aria-hidden="true" />
+                  <span>Phomoji</span>
                 </a>
-                <a className="phomoji-button phomoji-button--ghost" href="#features">
-                  Explore features
+
+                <h1 id="phomoji-hero-title">
+                  <span>Emoji first.</span>
+                  <span>Photo on tap.</span>
+                </h1>
+
+                <p className="phomoji-hero-lede">
+                  Turn your photos into playful emoji covers — tap to reveal the original.
+                </p>
+
+                <a className="phomoji-app-store" href="#/" aria-label="Download on the App Store">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M17.05 12.35c-.03-3.02 2.47-4.47 2.58-4.54-1.4-2.05-3.58-2.33-4.35-2.36-1.85-.19-3.61 1.09-4.55 1.09-.94 0-2.39-1.06-3.93-1.03-2.02.03-3.88 1.17-4.92 2.98-2.1 3.65-.54 9.06 1.51 12.02 1 1.45 2.2 3.08 3.77 3.02 1.51-.06 2.08-.98 3.91-.98 1.82 0 2.34.98 3.94.95 1.63-.03 2.66-1.48 3.65-2.93 1.15-1.68 1.62-3.31 1.65-3.39-.04-.02-3.18-1.22-3.26-4.83ZM14.08 3.5c.83-1 1.39-2.4 1.24-3.79-1.2.05-2.65.8-3.51 1.8-.77.89-1.44 2.31-1.26 3.67 1.34.1 2.7-.68 3.53-1.68Z"
+                    />
+                  </svg>
+                  <span>
+                    <small>Download on the</small>
+                    App Store
+                  </span>
                 </a>
               </div>
 
-              <aside className="phomoji-store-strip" aria-label="Coming soon on app stores">
-                <span>Coming soon on</span>
-                <div>
-                  <span>App Store</span>
-                  <span>Google Play</span>
+              <div className="phomoji-hero-stage" aria-label="Phomoji app preview">
+                <div className="phomoji-phone" aria-hidden="true">
+                  <div className="phomoji-phone-status">
+                    <span>9:41</span>
+                    <span className="phomoji-phone-pill" />
+                    <span className="phomoji-phone-icons" />
+                  </div>
+                  <div className="phomoji-phone-top">
+                    <span>Phomoji</span>
+                    <span className="phomoji-crown">♛</span>
+                  </div>
+                  <div className="phomoji-phone-nav">
+                    <span className="is-active">Home</span>
+                    <span>Discover</span>
+                    <b>+</b>
+                    <span>Activity</span>
+                    <span>Profile</span>
+                  </div>
                 </div>
-              </aside>
-            </div>
 
-            <div className="phomoji-hero-art" aria-label="Phomoji app preview">
-              <Image
-                src="/phomoji-hero.png"
-                alt="Phomoji app preview with a phone mockup and expressive cloud character"
-                width={1024}
-                height={576}
-                priority
-                sizes="(max-width: 768px) 100vw, 54vw"
-              />
+                <div className="phomoji-photo-card phomoji-photo-card--emoji" aria-hidden="true">
+                  <Image src="/assets/hero/hero-emoji-card.png" alt="" width={437} height={500} priority />
+                  <span className="phomoji-tap-badge">
+                    <Sparkles size={14} aria-hidden="true" />
+                    Tap to reveal
+                  </span>
+                </div>
+
+                <div className="phomoji-photo-card phomoji-photo-card--photo" aria-hidden="true">
+                  <Image src="/assets/hero/hero-photo-card.png" alt="" width={417} height={500} priority />
+                </div>
+
+                <div className="phomoji-reveal-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 170 92">
+                    <path
+                      d="M10 53C46 18 88 20 121 46"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeWidth="18"
+                    />
+                    <path d="M113 13 160 61 94 70Z" fill="currentColor" />
+                    <path
+                      d="M10 53C46 18 88 20 121 46"
+                      fill="none"
+                      stroke="#fff"
+                      strokeLinecap="round"
+                      strokeWidth="7"
+                      opacity=".75"
+                    />
+                  </svg>
+                </div>
+
+                <button className="phomoji-touch" type="button" aria-label="Reveal photo preview">
+                  <Image src="/assets/hero/hero-hand-tap.png" alt="" width={361} height={395} priority aria-hidden="true" />
+                </button>
+
+                <span className="phomoji-sticker phomoji-sticker--top" aria-hidden="true">
+                  <Image src="/assets/hero/hero-cloud-heart.png" alt="" width={323} height={246} />
+                </span>
+                <span className="phomoji-sticker phomoji-sticker--bottom" aria-hidden="true">
+                  <Image src="/assets/hero/hero-cloud-star.png" alt="" width={268} height={243} />
+                </span>
+              </div>
+
+              <Image className="phomoji-cloud-mascot" src="/assets/hero/hero-cloud-main.png" alt="" width={536} height={401} priority aria-hidden="true" />
             </div>
           </section>
 

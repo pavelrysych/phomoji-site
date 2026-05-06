@@ -10,14 +10,14 @@ npm install
 npm run dev
 ```
 
-- Home: [http://localhost:3000](http://localhost:3000) — redesigned **Phomoji** landing with pastel hero artwork, app-preview sections, feature cards, Terms/Privacy modals, and coming-soon store messaging.
+- Home: [http://localhost:3000](http://localhost:3000) — **Phomoji** landing with a code-built hero composition, app-preview sections, feature cards, and Terms/Privacy modals.
 
 ## Structure
 
 | Path | Role |
 |------|------|
 | `src/components/phomoji/` | `PhomojiLanding` + тексты Terms/Privacy; стили `src/styles/phomoji-landing.css` |
-| `public/phomoji-hero.png` | Main hero artwork used by the redesigned landing |
+| `public/phomoji-hero.png` | Previous standalone hero artwork retained for reference |
 | `public/assets/background.mp4` | Legacy static-site video asset; no longer used by the Next landing |
 | `src/components/ui/` | shadcn-style UI (includes `lamp.tsx`) |
 | `src/lib/utils.ts` | `cn()` helper (`clsx` + `tailwind-merge`) |
