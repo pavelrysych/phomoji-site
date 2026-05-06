@@ -209,10 +209,10 @@ export function PhomojiLanding() {
                 </button>
 
                 <span className="phomoji-sticker phomoji-sticker--top" aria-hidden="true">
-                  <Image src="/assets/hero/hero-cloud-heart.png" alt="" width={323} height={246} />
+                  <Image src="/assets/hero/hero-cloud-heart-v2.png" alt="" width={1079} height={821} />
                 </span>
                 <span className="phomoji-sticker phomoji-sticker--bottom" aria-hidden="true">
-                  <Image src="/assets/hero/hero-cloud-star.png" alt="" width={268} height={243} />
+                  <Image src="/assets/hero/hero-cloud-star-v2.png" alt="" width={793} height={691} />
                 </span>
               </div>
 
