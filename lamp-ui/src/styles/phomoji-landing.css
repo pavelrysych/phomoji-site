@@ -119,7 +119,7 @@
   display: inline-flex;
   align-items: center;
   gap: clamp(0.85rem, 1.25vw, 1.25rem);
-  margin-bottom: clamp(3.3rem, 5.6vw, 5.4rem);
+  margin-bottom: clamp(2.2rem, 4vw, 3.8rem);
   line-height: 1;
 }
 
@@ -162,11 +162,19 @@
 
 .phomoji-hero-lede {
   max-width: 38rem;
-  margin-top: clamp(1.8rem, 2.8vw, 2.8rem);
+  margin-top: clamp(1.35rem, 2.2vw, 2.1rem);
   color: #5f5c8c;
   font-size: clamp(1.35rem, 1.9vw, 2rem);
   font-weight: 500;
   line-height: 1.38;
+}
+
+.phomoji-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: clamp(1.4rem, 2.3vw, 2.2rem);
 }
 
 .phomoji-app-store {
@@ -174,7 +182,6 @@
   align-items: center;
   gap: 0.82rem;
   min-height: 5rem;
-  margin-top: clamp(2.4rem, 4.2vw, 4rem);
   padding: 0.72rem 1.45rem 0.78rem;
   border: 1px solid rgba(255, 255, 255, 0.78);
   border-radius: 1.55rem;
@@ -210,8 +217,55 @@
   line-height: 1;
 }
 
+.phomoji-hero-memory-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: fit-content;
+  padding: 0.42rem;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: 0 1.2rem 2.8rem rgba(100, 64, 166, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+.phomoji-hero-memory-strip span {
+  display: grid;
+  place-items: center;
+  width: clamp(3.15rem, 4.2vw, 4.25rem);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.98), rgba(255, 238, 252, 0.6) 66%, rgba(234, 214, 255, 0.28));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.68), 0 0.9rem 1.6rem rgba(111, 75, 232, 0.12);
+  animation: phomoji-memory-peek 3.4s ease-in-out infinite;
+}
+
+.phomoji-hero-memory-strip span:nth-child(2) {
+  animation-delay: -0.45s;
+}
+
+.phomoji-hero-memory-strip span:nth-child(3) {
+  animation-delay: -0.9s;
+}
+
+.phomoji-hero-memory-strip span:nth-child(4) {
+  animation-delay: -1.35s;
+}
+
+.phomoji-hero-memory-strip img {
+  display: block;
+  width: 118%;
+  height: 118%;
+  object-fit: contain;
+  filter: drop-shadow(0 0.65rem 0.9rem rgba(105, 69, 165, 0.16));
+}
+
 .phomoji-hero-stage {
   position: relative;
+  --phomoji-drift-x: 0px;
+  --phomoji-drift-y: 0px;
   min-height: clamp(39rem, 47vw, 50rem);
   isolation: isolate;
 }
@@ -233,6 +287,8 @@
   display: block;
   width: 100%;
   height: auto;
+  transform: translate3d(calc(var(--phomoji-drift-x) * 0.45), calc(var(--phomoji-drift-y) * 0.45), 0);
+  transition: transform 0.35s ease;
 }
 
 .phomoji-photo-card {
@@ -257,7 +313,8 @@
   left: 0%;
   width: min(44%, 27rem);
   aspect-ratio: 0.874;
-  transform: rotate(-4.8deg);
+  transform: translate3d(calc(var(--phomoji-drift-x) * -0.55), calc(var(--phomoji-drift-y) * -0.35), 0) rotate(-4.8deg);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease;
 }
 
 .phomoji-photo-card--photo {
@@ -265,7 +322,17 @@
   right: 0%;
   width: min(43%, 27rem);
   aspect-ratio: 0.834;
-  transform: rotate(5.2deg);
+  transform: translate3d(calc(var(--phomoji-drift-x) * 0.55), calc(var(--phomoji-drift-y) * -0.2), 0) rotate(5.2deg);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease;
+}
+
+.phomoji-hero-stage.is-revealed .phomoji-photo-card--emoji {
+  opacity: 0.82;
+  transform: translate3d(calc(-1.35rem + var(--phomoji-drift-x) * -0.55), calc(-0.6rem + var(--phomoji-drift-y) * -0.35), 0) rotate(-8deg) scale(0.94);
+}
+
+.phomoji-hero-stage.is-revealed .phomoji-photo-card--photo {
+  transform: translate3d(calc(-1rem + var(--phomoji-drift-x) * 0.55), calc(-0.9rem + var(--phomoji-drift-y) * -0.2), 0) rotate(2.5deg) scale(1.06);
 }
 
 .phomoji-tap-badge {
@@ -296,6 +363,7 @@
   display: block;
   width: 100%;
   height: auto;
+  animation: phomoji-arrow-nudge 2.2s ease-in-out infinite;
 }
 
 .phomoji-touch {
@@ -310,6 +378,15 @@
   background: transparent;
   cursor: pointer;
   transform: rotate(-7deg);
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.phomoji-touch:hover {
+  transform: translateY(-0.25rem) rotate(-7deg) scale(1.03);
+}
+
+.phomoji-touch:active {
+  transform: translateY(0.1rem) rotate(-7deg) scale(0.98);
 }
 
 .phomoji-touch img {
@@ -348,6 +425,37 @@
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 1.1rem 1.8rem rgba(86, 60, 145, 0.14));
+}
+
+.phomoji-reveal-burst {
+  position: absolute;
+  z-index: 6;
+  top: 40%;
+  left: 41%;
+  width: 8rem;
+  height: 8rem;
+  pointer-events: none;
+}
+
+.phomoji-reveal-burst span {
+  position: absolute;
+  inset: 42%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.96), rgba(255, 215, 103, 0.72) 42%, transparent 68%);
+  opacity: 0;
+  transform: scale(0.1);
+}
+
+.phomoji-hero-stage.is-revealed .phomoji-reveal-burst span {
+  animation: phomoji-pop-burst 0.78s ease-out both;
+}
+
+.phomoji-hero-stage.is-revealed .phomoji-reveal-burst span:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.phomoji-hero-stage.is-revealed .phomoji-reveal-burst span:nth-child(3) {
+  animation-delay: 0.16s;
 }
 
 .phomoji-cloud-mascot {
@@ -411,9 +519,14 @@
 }
 
 .phomoji-step-grid,
-.phomoji-feature-grid {
+.phomoji-feature-grid,
+.phomoji-memory-grid {
   display: grid;
   gap: 1rem;
+}
+
+.phomoji-memory-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .phomoji-step-grid {
@@ -426,12 +539,93 @@
 
 .phomoji-step-card,
 .phomoji-feature-card,
+.phomoji-memory-card,
 .phomoji-preview-card {
   border: 1px solid var(--phomoji-border);
   border-radius: 1.7rem;
   background: var(--phomoji-card);
   box-shadow: 0 24px 70px rgba(85, 62, 147, 0.09);
   backdrop-filter: blur(18px);
+}
+
+.phomoji-section--playground {
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.phomoji-memory-card {
+  position: relative;
+  min-height: 23rem;
+  padding: 1rem 1rem 1.25rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.94), transparent 8rem),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.78), rgba(246, 222, 255, 0.64));
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  animation: phomoji-memory-float 4.2s ease-in-out infinite;
+  animation-delay: calc(var(--memory-index) * -0.55s);
+}
+
+.phomoji-memory-card:hover,
+.phomoji-memory-card:focus-within {
+  border-color: rgba(111, 75, 232, 0.28);
+  box-shadow: 0 28px 86px rgba(85, 62, 147, 0.14);
+  transform: translateY(-0.45rem) rotate(0.6deg);
+}
+
+.phomoji-memory-card::before {
+  content: "";
+  position: absolute;
+  inset: auto 1rem 5.8rem;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(128, 86, 255, 0), rgba(223, 92, 174, 0.6), rgba(255, 124, 91, 0));
+  transform: scaleX(0.5);
+  opacity: 0.65;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.phomoji-memory-card:hover::before,
+.phomoji-memory-card:focus-within::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.phomoji-memory-image {
+  display: block;
+  width: min(100%, 14rem);
+  height: 13.2rem;
+  margin: -0.55rem auto 0.9rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1.1rem 1.9rem rgba(105, 69, 165, 0.15));
+  transition: transform 0.28s ease;
+}
+
+.phomoji-memory-card:hover .phomoji-memory-image,
+.phomoji-memory-card:focus-within .phomoji-memory-image {
+  transform: translateY(-0.45rem) scale(1.04) rotate(-1.5deg);
+}
+
+.phomoji-memory-card span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.8rem;
+  padding: 0.24rem 0.72rem;
+  border-radius: 999px;
+  color: #6f4be8;
+  background: rgba(255, 255, 255, 0.76);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.phomoji-memory-card h3 {
+  margin-top: 0.75rem;
+  color: var(--phomoji-ink);
+  font-size: 1.08rem;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .phomoji-step-card {
@@ -718,6 +912,50 @@ body.phomoji-sheet-open {
   }
 }
 
+@keyframes phomoji-arrow-nudge {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(0.34rem) rotate(2deg);
+  }
+}
+
+@keyframes phomoji-pop-burst {
+  0% {
+    opacity: 0.95;
+    transform: scale(0.1);
+  }
+  72% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(8.5);
+  }
+}
+
+@keyframes phomoji-memory-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.38rem);
+  }
+}
+
+@keyframes phomoji-memory-peek {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-0.22rem) scale(1.04);
+  }
+}
+
 @media (max-width: 980px) {
   .phomoji-hero {
     min-height: auto;
@@ -756,6 +994,10 @@ body.phomoji-sheet-open {
     border-radius: 1.25rem;
   }
 
+  .phomoji-hero-actions {
+    margin-top: 1.15rem;
+  }
+
   .phomoji-hero-stage {
     width: min(100%, 40rem);
     min-height: 33rem;
@@ -787,6 +1029,7 @@ body.phomoji-sheet-open {
 
   .phomoji-step-grid,
   .phomoji-feature-grid,
+  .phomoji-memory-grid,
   .phomoji-preview-card {
     grid-template-columns: 1fr;
   }
@@ -796,8 +1039,13 @@ body.phomoji-sheet-open {
   }
 
   .phomoji-step-card,
+  .phomoji-memory-card,
   .phomoji-feature-card {
     min-height: auto;
+  }
+
+  .phomoji-memory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -839,7 +1087,6 @@ body.phomoji-sheet-open {
 
   .phomoji-app-store {
     min-height: 3.55rem;
-    margin-top: 1.4rem;
     padding: 0.5rem 0.95rem;
     gap: 0.55rem;
     border-radius: 1rem;
@@ -856,6 +1103,15 @@ body.phomoji-sheet-open {
 
   .phomoji-app-store small {
     font-size: 0.66rem;
+  }
+
+  .phomoji-hero-memory-strip {
+    gap: 0.28rem;
+    padding: 0.32rem;
+  }
+
+  .phomoji-hero-memory-strip span {
+    width: 2.55rem;
   }
 
   .phomoji-hero-stage {
@@ -905,6 +1161,13 @@ body.phomoji-sheet-open {
     width: 5.2rem;
   }
 
+  .phomoji-reveal-burst {
+    top: 44%;
+    left: 42%;
+    width: 5rem;
+    height: 5rem;
+  }
+
   .phomoji-sticker--top {
     top: -4%;
     right: 24%;
@@ -929,9 +1192,25 @@ body.phomoji-sheet-open {
     border-radius: 1.45rem;
   }
 
+  .phomoji-section-heading h2,
+  .phomoji-preview-card h2 {
+    font-size: clamp(2rem, 9.5vw, 2.65rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+
   .phomoji-step-image,
-  .phomoji-feature-image {
+  .phomoji-feature-image,
+  .phomoji-memory-image {
     height: 8.8rem;
+  }
+
+  .phomoji-memory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .phomoji-memory-card {
+    min-height: 17rem;
   }
 
   .phomoji-preview-visual {
@@ -951,7 +1230,11 @@ body.phomoji-sheet-open {
 
 @media (prefers-reduced-motion: reduce) {
   .legal-sheet,
-  .sheet-backdrop {
+  .sheet-backdrop,
+  .phomoji-reveal-arrow img,
+  .phomoji-hero-memory-strip span,
+  .phomoji-memory-card,
+  .phomoji-hero-stage.is-revealed .phomoji-reveal-burst span {
     animation: none;
     transition-duration: 0.01ms;
   }

@@ -2,10 +2,15 @@
 
 import Image from "next/image";
 import { Sparkles, Heart, Image as ImageIcon, WandSparkles, Cloud, Type } from "lucide-react";
+import type { CSSProperties, PointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PrivacySheetContent, TermsSheetContent } from "./LegalSheets";
 
 type Route = "home" | "terms" | "privacy";
+type StageStyle = CSSProperties & {
+  "--phomoji-drift-x"?: string;
+  "--phomoji-drift-y"?: string;
+};
 
 const TITLES: Record<Route, string> = {
   home: "Phomoji — Emoji memories that reveal the original photo.",
@@ -70,6 +75,29 @@ const features = [
   },
 ];
 
+const memoryPlayground = [
+  {
+    title: "Kids",
+    text: "Soft emoji portraits for tiny everyday moments.",
+    image: "/assets/story/memory-child-emoji.png",
+  },
+  {
+    title: "Cats",
+    text: "Pet memories turn into sweet collectible stickers.",
+    image: "/assets/story/memory-kitten-emoji.png",
+  },
+  {
+    title: "Dogs",
+    text: "Playful reveal cards for the photos you forgot you took.",
+    image: "/assets/story/memory-puppy-emoji.png",
+  },
+  {
+    title: "Family",
+    text: "A warm reveal effect for shared memories.",
+    image: "/assets/story/memory-family-reveal.png",
+  },
+];
+
 function parseRoute(): Route {
   if (typeof window === "undefined") return "home";
   const raw = (window.location.hash || "#").replace(/^#/, "").replace(/^\//, "") || "";
@@ -86,6 +114,11 @@ export function PhomojiLanding() {
   const termsPanelRef = useRef<HTMLDivElement>(null);
   const privacyPanelRef = useRef<HTMLDivElement>(null);
   const [route, setRoute] = useState<Route>("home");
+  const [heroRevealed, setHeroRevealed] = useState(false);
+  const [stageStyle, setStageStyle] = useState<StageStyle>({
+    "--phomoji-drift-x": "0px",
+    "--phomoji-drift-y": "0px",
+  });
 
   const applyRoute = useCallback((next: Route) => {
     const termsOpen = next === "terms";
@@ -137,6 +170,15 @@ export function PhomojiLanding() {
   const termsOpen = route === "terms";
   const privacyOpen = route === "privacy";
   const anyOpen = termsOpen || privacyOpen;
+  const updateStageDrift = useCallback((e: PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setStageStyle({
+      "--phomoji-drift-x": `${Math.max(-10, Math.min(10, x * 18))}px`,
+      "--phomoji-drift-y": `${Math.max(-10, Math.min(10, y * 18))}px`,
+    });
+  }, []);
 
   return (
     <>
@@ -169,21 +211,37 @@ export function PhomojiLanding() {
                   Turn your photos into playful emoji covers — tap to reveal the original.
                 </p>
 
-                <a className="phomoji-app-store" href="#/" aria-label="Download on the App Store">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      fill="currentColor"
-                      d="M17.05 12.35c-.03-3.02 2.47-4.47 2.58-4.54-1.4-2.05-3.58-2.33-4.35-2.36-1.85-.19-3.61 1.09-4.55 1.09-.94 0-2.39-1.06-3.93-1.03-2.02.03-3.88 1.17-4.92 2.98-2.1 3.65-.54 9.06 1.51 12.02 1 1.45 2.2 3.08 3.77 3.02 1.51-.06 2.08-.98 3.91-.98 1.82 0 2.34.98 3.94.95 1.63-.03 2.66-1.48 3.65-2.93 1.15-1.68 1.62-3.31 1.65-3.39-.04-.02-3.18-1.22-3.26-4.83ZM14.08 3.5c.83-1 1.39-2.4 1.24-3.79-1.2.05-2.65.8-3.51 1.8-.77.89-1.44 2.31-1.26 3.67 1.34.1 2.7-.68 3.53-1.68Z"
-                    />
-                  </svg>
-                  <span>
-                    <small>Download on the</small>
-                    App Store
-                  </span>
-                </a>
+                <div className="phomoji-hero-actions">
+                  <a className="phomoji-app-store" href="#/" aria-label="Download on the App Store">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        fill="currentColor"
+                        d="M17.05 12.35c-.03-3.02 2.47-4.47 2.58-4.54-1.4-2.05-3.58-2.33-4.35-2.36-1.85-.19-3.61 1.09-4.55 1.09-.94 0-2.39-1.06-3.93-1.03-2.02.03-3.88 1.17-4.92 2.98-2.1 3.65-.54 9.06 1.51 12.02 1 1.45 2.2 3.08 3.77 3.02 1.51-.06 2.08-.98 3.91-.98 1.82 0 2.34.98 3.94.95 1.63-.03 2.66-1.48 3.65-2.93 1.15-1.68 1.62-3.31 1.65-3.39-.04-.02-3.18-1.22-3.26-4.83ZM14.08 3.5c.83-1 1.39-2.4 1.24-3.79-1.2.05-2.65.8-3.51 1.8-.77.89-1.44 2.31-1.26 3.67 1.34.1 2.7-.68 3.53-1.68Z"
+                      />
+                    </svg>
+                    <span>
+                      <small>Download on the</small>
+                      App Store
+                    </span>
+                  </a>
+
+                  <div className="phomoji-hero-memory-strip" aria-hidden="true">
+                    {memoryPlayground.map((memory) => (
+                      <span key={memory.title}>
+                        <Image src={memory.image} alt="" width={160} height={160} />
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              <div className="phomoji-hero-stage" aria-label="Phomoji app preview">
+              <div
+                className={`phomoji-hero-stage ${heroRevealed ? "is-revealed" : ""}`}
+                aria-label="Phomoji app preview"
+                onPointerMove={updateStageDrift}
+                onPointerLeave={() => setStageStyle({ "--phomoji-drift-x": "0px", "--phomoji-drift-y": "0px" })}
+                style={stageStyle}
+              >
                 <div className="phomoji-phone" aria-hidden="true">
                   <Image src="/assets/hero/hero-phone-toy.png" alt="" width={763} height={1488} priority />
                 </div>
@@ -204,9 +262,21 @@ export function PhomojiLanding() {
                   <Image src="/assets/hero/hero-reveal-arrow-glossy.png" alt="" width={420} height={165} />
                 </div>
 
-                <button className="phomoji-touch" type="button" aria-label="Reveal photo preview">
+                <button
+                  className="phomoji-touch"
+                  type="button"
+                  aria-label="Reveal photo preview"
+                  aria-pressed={heroRevealed}
+                  onClick={() => setHeroRevealed((value) => !value)}
+                >
                   <Image src="/assets/hero/hero-hand-tap.png" alt="" width={361} height={395} priority aria-hidden="true" />
                 </button>
+
+                <div className="phomoji-reveal-burst" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
 
                 <span className="phomoji-sticker phomoji-sticker--top" aria-hidden="true">
                   <Image src="/assets/hero/hero-cloud-heart-v2.png" alt="" width={1079} height={821} />
@@ -217,6 +287,22 @@ export function PhomojiLanding() {
               </div>
 
               <Image className="phomoji-cloud-mascot" src="/assets/hero/hero-cloud-main.png" alt="" width={536} height={401} priority aria-hidden="true" />
+            </div>
+          </section>
+
+          <section className="phomoji-section phomoji-section--playground">
+            <div className="phomoji-section-heading">
+              <p>Memory playground</p>
+              <h2>More tiny memory characters.</h2>
+            </div>
+            <div className="phomoji-memory-grid">
+              {memoryPlayground.map((memory, index) => (
+                <article className="phomoji-memory-card" key={memory.title} style={{ "--memory-index": index } as CSSProperties}>
+                  <Image className="phomoji-memory-image" src={memory.image} alt="" width={360} height={360} />
+                  <span>{memory.title}</span>
+                  <h3>{memory.text}</h3>
+                </article>
+              ))}
             </div>
           </section>
 
